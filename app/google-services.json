@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "637823783449",
+    "firebase_url": "https://captchup-22a63.firebaseio.com",
+    "project_id": "captchup-22a63",
+    "storage_bucket": "captchup-22a63.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637823783449:android:8ded59d594691d4e",
+        "android_client_info": {
+          "package_name": "com.esgi.project.captchup"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "637823783449-34plgfbe7nmf1h9954vujhel1fv6ne1t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.esgi.project.captchup",
+            "certificate_hash": "1bf77cc7d299509854d03bd7d8614652351b356d"
+          }
+        },
+        {
+          "client_id": "637823783449-stsmot4hbiij70iqkpja6701lul1hh9t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhJqwxD1i5CCicJa2-KL0fjzO62yH98jU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "637823783449-stsmot4hbiij70iqkpja6701lul1hh9t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
