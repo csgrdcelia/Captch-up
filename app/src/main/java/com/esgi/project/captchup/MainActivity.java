@@ -9,8 +9,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
-import java.util.logging.Level;
-
 public class MainActivity extends AppCompatActivity {
 
     //private TextView mTextMessage;
@@ -22,13 +20,15 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    updateUI(new GameFragment());
+                    //updateFragment(new GameFragment());
+                    updateFragment(LevelFragment.newInstance(0));
                     return true;
                 case R.id.navigation_new:
-                    updateUI(new LevelFragment());
+                    //updateFragment(new LevelFragment());
+                    updateFragment(LevelFragment.newInstance(1));
                     return true;
                 case R.id.navigation_achievements:
-                    updateUI(new GameFragment());
+                    updateFragment(new GameFragment());
                     return true;
             }
             return false;
@@ -38,27 +38,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        //updateUI(new LevelFragment());
+        updateFragment(LevelFragment.newInstance(0));
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
-    private void updateUI(Fragment fragmentToGive) {
-        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.mainFragment);
-        if(!(currentFragment.getClass() == fragmentToGive.getClass())) {
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.mainFragment, fragmentToGive);
-            fragmentTransaction.disallowAddToBackStack();
-            fragmentTransaction.commit();
-        }
+    private void updateFragment(Fragment fragmentToGive) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.mainFragment, fragmentToGive);
+        fragmentTransaction.disallowAddToBackStack();
+        fragmentTransaction.commit();
     }
 
 }
