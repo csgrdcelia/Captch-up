@@ -11,8 +11,6 @@ import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity {
 
-    //private TextView mTextMessage;
-    //Fragment fragment = new LevelFragment();
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -20,15 +18,13 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    //updateFragment(new GameFragment());
-                    updateFragment(LevelFragment.newInstance(0));
+                    updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.UNFINISHED));
                     return true;
                 case R.id.navigation_new:
-                    //updateFragment(new LevelFragment());
-                    updateFragment(LevelFragment.newInstance(1));
+                    updateFragment(new GameFragment()); //TODO: Run gallery
                     return true;
                 case R.id.navigation_achievements:
-                    updateFragment(new GameFragment());
+                    updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.FINISHED));
                     return true;
             }
             return false;
@@ -38,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        updateFragment(LevelFragment.newInstance(0));
+        updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.UNFINISHED));
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
