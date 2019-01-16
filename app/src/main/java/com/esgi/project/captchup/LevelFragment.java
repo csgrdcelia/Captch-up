@@ -1,12 +1,20 @@
 package com.esgi.project.captchup;
 
 
+import android.media.Image;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -20,6 +28,8 @@ public class LevelFragment extends Fragment {
     }
 
     int index = 2;
+    private RecyclerView recyclerView;
+    private List<Level> levels = new ArrayList<>();
 
     public LevelFragment() {
         // Required empty public constructor
@@ -46,13 +56,35 @@ public class LevelFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        setTextView(String.valueOf(index));
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        addLevels();
+        recyclerView = (RecyclerView)getView().findViewById(R.id.recyclerView);
+        //recyclerView.setLayoutManager(new LinearLayoutManager(getView().getContext())); // DISPLAY 1 PER ROW
+        recyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),2)); // DISPLAY 2 PER ROW
+        recyclerView.setAdapter(new LevelAdapter(levels));
     }
 
-    public void setTextView(String text) {
-        TextView tv = getView().findViewById(R.id.tv);
-        tv.setText(text);
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    private void addLevels()
+    {
+        //TODO: supprimer ceci pour remplacer par la vraie récupération des niveaux
+        Prediction prediction1 = new Prediction(1, "Robot", 80.0, true);
+        Prediction prediction2 = new Prediction(2, "Jeu", 85.0, false);
+        Prediction prediction3 = new Prediction(3, "Test", 90.0, true);
+
+        List<Prediction> predictions = new ArrayList<>();
+        predictions.add(prediction1);
+        predictions.add(prediction2);
+        predictions.add(prediction3);
+
+        Level level = new Level(1, predictions, "url");
+        levels.add(level);
+
     }
 }

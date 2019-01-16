@@ -7,10 +7,10 @@
     tools:context=".LevelFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/tv"
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Level fragment " />
+        android:layout_height="match_parent" />
 
 </FrameLayout>
