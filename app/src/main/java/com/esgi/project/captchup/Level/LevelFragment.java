@@ -9,9 +9,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.R;
+import com.esgi.project.captchup.Utils.RecyclerViewClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +73,10 @@ public class LevelFragment extends Fragment {
 
         //recyclerView.setLayoutManager(new LinearLayoutManager(getView().getContext())); // DISPLAY 1 PER ROW
         recyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),2)); // DISPLAY 2 PER ROW
-        recyclerView.setAdapter(new LevelAdapter(levels));
+
+        RecyclerViewClickListener listener = (view,position) -> {
+            Toast.makeText(getContext(), "eetzz", Toast.LENGTH_SHORT).show();
+        };
+        recyclerView.setAdapter(new LevelAdapter(levels, listener));
     }
 }
