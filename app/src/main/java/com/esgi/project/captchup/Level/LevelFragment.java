@@ -69,14 +69,19 @@ public class LevelFragment extends Fragment {
             levels = Level.getFinishedLevels();
         else
             levels = Level.getUnfinishedLevels();
+
+
         recyclerView = (RecyclerView)getView().findViewById(R.id.recyclerView);
 
         //recyclerView.setLayoutManager(new LinearLayoutManager(getView().getContext())); // DISPLAY 1 PER ROW
         recyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),2)); // DISPLAY 2 PER ROW
 
-        RecyclerViewClickListener listener = (view,position) -> {
-            Toast.makeText(getContext(), "eetzz", Toast.LENGTH_SHORT).show();
+        RecyclerViewClickListener listener = (view,levelId) -> {
+            //TODO: créer interface comme dans TPFragment pour communiquer avec MainActivity et lancer ainsi un nouveau fragment
+            Toast.makeText(getContext(), String.valueOf(levelId), Toast.LENGTH_SHORT).show();
         };
         recyclerView.setAdapter(new LevelAdapter(levels, listener));
     }
+
+
 }

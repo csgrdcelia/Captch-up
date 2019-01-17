@@ -10,6 +10,7 @@ import com.esgi.project.captchup.R;
 import com.esgi.project.captchup.Utils.RecyclerViewClickListener;
 
 public class LevelViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    Level level;
     private TextView textViewView;
     private ImageView imageView;
     private RecyclerViewClickListener listener;
@@ -23,12 +24,13 @@ public class LevelViewHolder extends RecyclerView.ViewHolder implements View.OnC
     }
 
     public void bind(Level level){
+        this.level = level;
         textViewView.setText(level.getAdvancement());
         imageView.setImageResource(R.drawable.robot);
     }
 
     @Override
     public void onClick(View v) {
-        listener.onClick(v, getAdapterPosition());
+        listener.onClick(v, level.getId());
     }
 }

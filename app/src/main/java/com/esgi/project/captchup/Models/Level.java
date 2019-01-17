@@ -18,34 +18,35 @@ public class Level {
     }
 
     public static ArrayList<Level> getFinishedLevels() {
-        Prediction prediction1 = new Prediction(1, "Robot", 80.0, true);
-        Prediction prediction2 = new Prediction(2, "Jeu", 85.0, true);
-        Prediction prediction3 = new Prediction(3, "Test", 90.0, true);
+        Prediction prediction1 = new Prediction(20, "Robot", 80.0, true);
+        Prediction prediction2 = new Prediction(13, "Jeu", 85.0, true);
+        Prediction prediction3 = new Prediction(15, "Test", 90.0, true);
 
         List<Prediction> predictions = new ArrayList<>();
         predictions.add(prediction1);
         predictions.add(prediction2);
         predictions.add(prediction3);
 
-        Level level = new Level(1, predictions, "url");
+        Level level = new Level(50, predictions, "url");
+        Level level2 = new Level(51, predictions, "url2");
         ArrayList<Level> levels = new ArrayList<>();
         levels.add(level);
-        levels.add(level);
+        levels.add(level2);
 
         return levels;
     }
 
     public static List<Level> getUnfinishedLevels() {
-        Prediction prediction1 = new Prediction(1, "Robot", 80.0, false);
-        Prediction prediction2 = new Prediction(2, "Jeu", 85.0, true);
-        Prediction prediction3 = new Prediction(3, "Test", 90.0, false);
+        Prediction prediction1 = new Prediction(50, "Robot", 80.0, false);
+        Prediction prediction2 = new Prediction(23, "Jeu", 85.0, true);
+        Prediction prediction3 = new Prediction(32, "Test", 90.0, false);
 
         List<Prediction> predictions = new ArrayList<>();
         predictions.add(prediction1);
         predictions.add(prediction2);
         predictions.add(prediction3);
 
-        Level level = new Level(1, predictions, "url");
+        Level level = new Level(30, predictions, "url");
         ArrayList<Level> levels = new ArrayList<>();
         levels.add(level);
 
@@ -66,5 +67,9 @@ public class Level {
 
     public String getImage() {
         return imageUrl;
+    }
+
+    public int getId() {
+        return id;
     }
 }
