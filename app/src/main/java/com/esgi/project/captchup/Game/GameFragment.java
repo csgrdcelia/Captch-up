@@ -1,4 +1,4 @@
-package com.esgi.project.captchup;
+package com.esgi.project.captchup.Game;
 
 
 import android.os.Bundle;
@@ -7,12 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.esgi.project.captchup.Models.Level;
+import com.esgi.project.captchup.R;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class GameFragment extends Fragment {
 
+    Level currentLevel;
 
     public GameFragment() {
         // Required empty public constructor

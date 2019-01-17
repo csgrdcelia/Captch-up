@@ -1,4 +1,4 @@
-package com.esgi.project.captchup;
+package com.esgi.project.captchup.Signin;
 
 
 import android.app.ProgressDialog;
@@ -7,6 +7,8 @@ import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
+import com.esgi.project.captchup.R;
 
 
 public class BaseActivity extends AppCompatActivity {

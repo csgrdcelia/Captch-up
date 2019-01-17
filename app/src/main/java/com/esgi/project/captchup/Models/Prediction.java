@@ -1,4 +1,4 @@
-package com.esgi.project.captchup;
+package com.esgi.project.captchup.Models;
 
 public class Prediction {
     int id;

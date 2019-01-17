@@ -1,11 +1,12 @@
-package com.esgi.project.captchup;
+package com.esgi.project.captchup.Level;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
+import com.esgi.project.captchup.Models.Level;
+import com.esgi.project.captchup.R;
 
 public class LevelViewHolder extends RecyclerView.ViewHolder {
     private TextView textViewView;

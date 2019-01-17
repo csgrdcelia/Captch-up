@@ -1,6 +1,4 @@
-package com.esgi.project.captchup;
-
-import android.media.Image;
+package com.esgi.project.captchup.Models;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +17,7 @@ public class Level {
         this.imageUrl = image;
     }
 
-    static ArrayList<Level> getFinishedLevels() {
+    public static ArrayList<Level> getFinishedLevels() {
         Prediction prediction1 = new Prediction(1, "Robot", 80.0, true);
         Prediction prediction2 = new Prediction(2, "Jeu", 85.0, true);
         Prediction prediction3 = new Prediction(3, "Test", 90.0, true);

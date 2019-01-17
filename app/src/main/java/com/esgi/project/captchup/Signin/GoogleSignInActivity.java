@@ -1,4 +1,4 @@
-package com.esgi.project.captchup;
+package com.esgi.project.captchup.Signin;
 
 
 import android.content.Intent;
@@ -7,8 +7,9 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
+import com.esgi.project.captchup.MainActivity;
+import com.esgi.project.captchup.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -46,7 +47,8 @@ public class GoogleSignInActivity extends BaseActivity implements
         // [START config_signin]
         // Configure Google Sign In
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.default_web_client_id))
+                //.requestIdToken(getString(R.string.default_web_client_id)) // json parsing didnt worked - issue reported as seen on stackoverflow
+                .requestIdToken("637823783449-34plgfbe7nmf1h9954vujhel1fv6ne1t.apps.googleusercontent.com")
                 .requestEmail()
                 .build();
         // [END config_signin]
