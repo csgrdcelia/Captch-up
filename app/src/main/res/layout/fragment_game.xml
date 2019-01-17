@@ -37,6 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="30dp"
             android:layout_weight="1"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
             >
             <!-- PREDICTION 1 -->
@@ -66,7 +67,7 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             >
 
             <EditText
