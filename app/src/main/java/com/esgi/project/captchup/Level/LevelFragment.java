@@ -7,9 +7,11 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.esgi.project.captchup.Game.GameFragment;
@@ -73,7 +75,6 @@ public class LevelFragment extends Fragment {
 
 
         recyclerView = (RecyclerView)getView().findViewById(R.id.recyclerView);
-
         //recyclerView.setLayoutManager(new LinearLayoutManager(getView().getContext())); // DISPLAY 1 PER ROW
         recyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),2)); // DISPLAY 2 PER ROW
 
@@ -82,9 +83,6 @@ public class LevelFragment extends Fragment {
             Fragment myFragment = GameFragment.newInstance(levelId);
             activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, myFragment).addToBackStack(null).commit();
         };
-
         recyclerView.setAdapter(new LevelAdapter(levels, listener));
     }
-
-
 }

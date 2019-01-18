@@ -1,5 +1,6 @@
 package com.esgi.project.captchup.Level;
 
+import android.graphics.Color;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -9,11 +10,13 @@ import com.esgi.project.captchup.Models.Prediction;
 import com.esgi.project.captchup.R;
 
 public class PredictionViewHolder {
+    View v;
     Prediction prediction;
     TextView tvPrecision;
     ProgressBar pbPrecision;
 
     public PredictionViewHolder(View itemView) {
+        v = itemView;
         tvPrecision = (TextView) itemView.findViewById(R.id.tvPrecision);
         pbPrecision = (ProgressBar) itemView.findViewById(R.id.progressBar);
     }
@@ -25,4 +28,10 @@ public class PredictionViewHolder {
             pbPrecision.setProgress(prediction.getPrecision().intValue());
         }
     }
+
+    public void setFound()
+    {
+        v.setVisibility(View.GONE);
+    }
+
 }

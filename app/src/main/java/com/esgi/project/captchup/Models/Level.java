@@ -25,6 +25,21 @@ public class Level {
             return null;
     }
 
+    public int getPredictionNumber(String answer)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            if(predictions[i].value.equalsIgnoreCase(answer))
+            {
+                if(predictions[i].found == false) {
+                    predictions[i].found = true;
+                    return i;
+                }
+            }
+        }
+        return 3;
+    }
+
     public static ArrayList<Level> getFinishedLevels() {
         //TODO: replace with database query
         Prediction prediction1 = new Prediction(20, "Robot", 80.0, true);

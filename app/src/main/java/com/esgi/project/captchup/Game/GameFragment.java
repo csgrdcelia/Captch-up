@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.esgi.project.captchup.Level.PredictionViewHolder;
 import com.esgi.project.captchup.Models.Level;
@@ -24,7 +27,7 @@ public class GameFragment extends Fragment {
     public static final String LEVEL_ID = "levelId";
     Level currentLevel;
 
-    PredictionViewHolder prediction1, prediction2, prediction3;
+    PredictionViewHolder[] predictionViewHolders;
     TextView answer;
 
     public static GameFragment newInstance(int levelId) {
@@ -55,13 +58,35 @@ public class GameFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        prediction1 = new PredictionViewHolder(getView().findViewById(R.id.prediction1));
-        prediction1.bind(currentLevel.getPrediction(1));
-        prediction2 = new PredictionViewHolder(getView().findViewById(R.id.prediction2));
-        prediction2.bind(currentLevel.getPrediction(2));
-        prediction3 = new PredictionViewHolder(getView().findViewById(R.id.prediction3));
-        prediction3.bind(currentLevel.getPrediction(3));
+        //TODO: display only the not found predictions
+        predictionViewHolders = new PredictionViewHolder[3];
+        predictionViewHolders[0] = new PredictionViewHolder(getView().findViewById(R.id.prediction1));
+        predictionViewHolders[0].bind(currentLevel.getPrediction(1));
+        predictionViewHolders[1] = new PredictionViewHolder(getView().findViewById(R.id.prediction2));
+        predictionViewHolders[1].bind(currentLevel.getPrediction(2));
+        predictionViewHolders[2] = new PredictionViewHolder(getView().findViewById(R.id.prediction3));
+        predictionViewHolders[2].bind(currentLevel.getPrediction(3));
 
+        final EditText answerEditText = (EditText) getView().findViewById(R.id.answerEditText);
+        answerEditText.setOnKeyListener(new View.OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    checkAnswerValidity(answerEditText.getText().toString());
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
 
+    public void checkAnswerValidity(String answer) {
+        int predictionNumber = currentLevel.getPredictionNumber(answer);
+        if(predictionNumber < 3)
+        {
+            predictionViewHolders[predictionNumber].setFound();
+            Toast.makeText(getContext(), "Bravo !", Toast.LENGTH_SHORT).show();
+        }
+        //TODO: check if all answers are found
     }
 }
