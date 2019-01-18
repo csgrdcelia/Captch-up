@@ -5,16 +5,24 @@ import java.util.List;
 
 public class Level {
     private int id;
-    private List<Prediction> predictions;
+    private Prediction[] predictions;
     private String imageUrl;
 
     public Level() {
     }
 
-    public Level(int id, List<Prediction> predictions, String image) {
+    public Level(int id, Prediction[] predictions, String image) {
         this.id = id;
         this.predictions = predictions;
         this.imageUrl = image;
+    }
+
+    public Prediction getPrediction(int predictionNumber)
+    {
+        if(predictionNumber >= 1 && predictionNumber <= 3)
+            return predictions[predictionNumber - 1];
+        else
+            return null;
     }
 
     public static ArrayList<Level> getFinishedLevels() {
@@ -23,10 +31,10 @@ public class Level {
         Prediction prediction2 = new Prediction(13, "Jeu", 85.0, true);
         Prediction prediction3 = new Prediction(15, "Test", 90.0, true);
 
-        List<Prediction> predictions = new ArrayList<>();
-        predictions.add(prediction1);
-        predictions.add(prediction2);
-        predictions.add(prediction3);
+        Prediction predictions[] = new Prediction[3];
+        predictions[0] = prediction1;
+        predictions[1] = prediction2;
+        predictions[2] = prediction3;
 
         Level level = new Level(50, predictions, "url");
         Level level2 = new Level(51, predictions, "url2");
@@ -43,10 +51,10 @@ public class Level {
         Prediction prediction2 = new Prediction(23, "Jeu", 85.0, true);
         Prediction prediction3 = new Prediction(32, "Test", 90.0, false);
 
-        List<Prediction> predictions = new ArrayList<>();
-        predictions.add(prediction1);
-        predictions.add(prediction2);
-        predictions.add(prediction3);
+        Prediction predictions[] = new Prediction[3];
+        predictions[0] = prediction1;
+        predictions[1] = prediction2;
+        predictions[2] = prediction3;
 
         Level level = new Level(30, predictions, "url");
         ArrayList<Level> levels = new ArrayList<>();
@@ -61,10 +69,10 @@ public class Level {
         Prediction prediction2 = new Prediction(23, "Jeu", 85.0, true);
         Prediction prediction3 = new Prediction(32, "Test", 90.0, false);
 
-        List<Prediction> predictions = new ArrayList<>();
-        predictions.add(prediction1);
-        predictions.add(prediction2);
-        predictions.add(prediction3);
+        Prediction predictions[] = new Prediction[3];
+        predictions[0] = prediction1;
+        predictions[1] = prediction2;
+        predictions[2] = prediction3;
 
         return new Level(30, predictions, "url");
     }

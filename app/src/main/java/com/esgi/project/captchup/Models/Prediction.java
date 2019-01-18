@@ -16,4 +16,16 @@ public class Prediction {
         this.precision = precision;
         this.found = found;
     }
+
+    public String getValue() {
+        return value;
+    }
+
+    public Double getPrecision() {
+        return precision;
+    }
+
+    public Boolean getFound() {
+        return found;
+    }
 }

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.esgi.project.captchup.Level.PredictionViewHolder;
 import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.R;
 
@@ -23,7 +24,7 @@ public class GameFragment extends Fragment {
     public static final String LEVEL_ID = "levelId";
     Level currentLevel;
 
-    CardView prediction1, prediction2, prediction3;
+    PredictionViewHolder prediction1, prediction2, prediction3;
     TextView answer;
 
     public static GameFragment newInstance(int levelId) {
@@ -54,9 +55,12 @@ public class GameFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        prediction1 = getView().findViewById(R.id.prediction1);
-        prediction2 = getView().findViewById(R.id.prediction2);
-        prediction3 = getView().findViewById(R.id.prediction3);
+        prediction1 = new PredictionViewHolder(getView().findViewById(R.id.prediction1));
+        prediction1.bind(currentLevel.getPrediction(1));
+        prediction2 = new PredictionViewHolder(getView().findViewById(R.id.prediction2));
+        prediction2.bind(currentLevel.getPrediction(2));
+        prediction3 = new PredictionViewHolder(getView().findViewById(R.id.prediction3));
+        prediction3.bind(currentLevel.getPrediction(3));
 
 
     }
