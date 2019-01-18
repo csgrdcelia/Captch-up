@@ -18,6 +18,7 @@ public class Level {
     }
 
     public static ArrayList<Level> getFinishedLevels() {
+        //TODO: replace with database query
         Prediction prediction1 = new Prediction(20, "Robot", 80.0, true);
         Prediction prediction2 = new Prediction(13, "Jeu", 85.0, true);
         Prediction prediction3 = new Prediction(15, "Test", 90.0, true);
@@ -37,6 +38,7 @@ public class Level {
     }
 
     public static List<Level> getUnfinishedLevels() {
+        //TODO: replace with database query
         Prediction prediction1 = new Prediction(50, "Robot", 80.0, false);
         Prediction prediction2 = new Prediction(23, "Jeu", 85.0, true);
         Prediction prediction3 = new Prediction(32, "Test", 90.0, false);
@@ -51,6 +53,20 @@ public class Level {
         levels.add(level);
 
         return levels;
+    }
+
+    public static Level getLevel(int levelId) {
+        //TODO: replace with database query
+        Prediction prediction1 = new Prediction(50, "Robot", 80.0, false);
+        Prediction prediction2 = new Prediction(23, "Jeu", 85.0, true);
+        Prediction prediction3 = new Prediction(32, "Test", 90.0, false);
+
+        List<Prediction> predictions = new ArrayList<>();
+        predictions.add(prediction1);
+        predictions.add(prediction2);
+        predictions.add(prediction3);
+
+        return new Level(30, predictions, "url");
     }
 
 

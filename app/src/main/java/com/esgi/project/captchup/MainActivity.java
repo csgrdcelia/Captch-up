@@ -7,13 +7,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
 import com.esgi.project.captchup.Game.GameFragment;
 import com.esgi.project.captchup.Level.LevelFragment;
 
-    public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity {
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -25,10 +24,10 @@ import com.esgi.project.captchup.Level.LevelFragment;
                     updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.UNFINISHED));
                     return true;
                 case R.id.navigation_new:
-                    updateFragment(new GameFragment()); //TODO: Run gallery
+                    updateFragment(GameFragment.newInstance(1)); //TODO: Run gallery instead
                     return true;
                 case R.id.navigation_achievements:
-                    updateFragment(LevelFragment.   newInstance(LevelFragment.LevelFragmentType.FINISHED));
+                    updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.FINISHED));
                     return true;
             }
             return false;
@@ -50,7 +49,7 @@ import com.esgi.project.captchup.Level.LevelFragment;
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Fragment existingFragment = getSupportFragmentManager().findFragmentById(R.id.mainFragment);
-        if(existingFragment == null) {
+        if (existingFragment == null) {
             updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.UNFINISHED));
         }
     }
@@ -62,5 +61,4 @@ import com.esgi.project.captchup.Level.LevelFragment;
         fragmentTransaction.disallowAddToBackStack();
         fragmentTransaction.commit();
     }
-
 }
