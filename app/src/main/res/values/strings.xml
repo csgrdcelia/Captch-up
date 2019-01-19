@@ -92,4 +92,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="answer_already_found">Cette réponse a déjà été trouvée !</string>
+    <string name="try_again">Essaie encore !</string>
+    <string name="congrats">Bravo !</string>
 </resources>

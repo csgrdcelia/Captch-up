@@ -60,15 +60,16 @@ public class GameFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
 
+    /**
+     *
+     */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        if(currentLevel.isFinished()) {
+        bindPredictions();
 
-        }
-        else {
-            bindPredictions();
+        if(!currentLevel.isFinished()) {
             listenAnswer();
         }
 
@@ -114,22 +115,20 @@ public class GameFragment extends Fragment {
         int predictionNumber = currentLevel.getPredictionNumber(answer);
 
         if(predictionNumber == Prediction.ALREADY_FOUND) {
-            Toast.makeText(getContext(), "Ce mot a déjà été trouvé !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.answer_already_found), Toast.LENGTH_SHORT).show();
         } else if (predictionNumber == Prediction.WRONG_ANSWER) {
-            Toast.makeText(getContext(), "Essaie encore !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.try_again), Toast.LENGTH_SHORT).show();
         }
         else {
-            predictionViewHolders[predictionNumber].setFound();
+            predictionViewHolders[predictionNumber].setTextViewText();
             tvAnswer.clearComposingText();
-            Toast.makeText(getContext(), "Bravo !", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.congrats), Toast.LENGTH_SHORT).show();
 
             if(currentLevel.isFinished())
             {
                 launchConfetti();
             }
         }
-
-
     }
 
     /**
@@ -139,11 +138,11 @@ public class GameFragment extends Fragment {
     private void launchConfetti()
     {
         CommonConfetti.rainingConfetti((ViewGroup)getActivity().findViewById(R.id.mainFragment),
-                new int[] { Color.parseColor("#a864fd"),
-                        Color.parseColor("#29cdff"),
-                        Color.parseColor("#78ff44"),
-                        Color.parseColor("#ff718d"),
-                        Color.parseColor("#fdff6a") })
+                new int[] { R.color.confetti_1,
+                            R.color.confetti_2,
+                            R.color.confetti_3,
+                            R.color.confetti_4,
+                            R.color.confetti_5 })
                 .oneShot();
     }
 

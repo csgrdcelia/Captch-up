@@ -21,23 +21,29 @@ public class PredictionViewHolder {
         pbPrecision = (ProgressBar) itemView.findViewById(R.id.progressBar);
     }
 
+    /**
+     * Binds current prediction value to view
+     * @param prediction
+     */
     public void bind(Prediction prediction){
         if(prediction != null) {
-            if(prediction.getFound()) {
-                v.setVisibility(View.GONE);
-            }
-            else {
-                this.prediction = prediction;
-                tvPrecision.setText(prediction.getPrecision() + "%");
-                pbPrecision.setProgress(prediction.getPrecision().intValue());
-            }
+            this.prediction = prediction;
+            pbPrecision.setProgress(prediction.getPrecision().intValue());
+            setTextViewText();
         }
 
     }
 
-    public void setFound()
+    public void setTextViewText() {
+        if(prediction.getFound())
+            tvPrecision.setText(prediction.getValue());
+        else
+            tvPrecision.setText(prediction.getPrecision() + "%");
+    }
+
+    public void setIconImage()
     {
-        v.setVisibility(View.GONE);
+        //TODO: add icon "found" or "question mark" and adapt it there
     }
 
 }
