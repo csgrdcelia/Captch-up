@@ -23,10 +23,16 @@ public class PredictionViewHolder {
 
     public void bind(Prediction prediction){
         if(prediction != null) {
-            this.prediction = prediction;
-            tvPrecision.setText(prediction.getPrecision() + "%");
-            pbPrecision.setProgress(prediction.getPrecision().intValue());
+            if(prediction.getFound()) {
+                v.setVisibility(View.GONE);
+            }
+            else {
+                this.prediction = prediction;
+                tvPrecision.setText(prediction.getPrecision() + "%");
+                pbPrecision.setProgress(prediction.getPrecision().intValue());
+            }
         }
+
     }
 
     public void setFound()

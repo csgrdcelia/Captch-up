@@ -1,6 +1,9 @@
 package com.esgi.project.captchup.Models;
 
 public class Prediction {
+    public static final int WRONG_ANSWER = 3;
+    public static final int ALREADY_FOUND = 4;
+
     int id;
     String value;
     Double precision;
