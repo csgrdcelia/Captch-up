@@ -15,30 +15,20 @@ import com.esgi.project.captchup.Level.LevelFragment;
 public class MainActivity extends FragmentActivity {
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.UNFINISHED));
-                    return true;
-                case R.id.navigation_new:
-                    updateFragment(GameFragment.newInstance(1)); //TODO: Run gallery instead
-                    return true;
-                case R.id.navigation_achievements:
-                    updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.FINISHED));
-                    return true;
-            }
-            return false;
-        }
-    };
-/*
-    @Override
-    protected void onResume() {
-        super.onResume();
-        updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.UNFINISHED));
-    }*/
+            = item -> {
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
+                        updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.UNFINISHED));
+                        return true;
+                    case R.id.navigation_new:
+                        updateFragment(GameFragment.newInstance(1)); //TODO: Run gallery instead
+                        return true;
+                    case R.id.navigation_achievements:
+                        updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.FINISHED));
+                        return true;
+                }
+                return false;
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +44,9 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    /**
+     *  Bind the given fragment into R.id.mainFragment
+     */
     private void updateFragment(Fragment fragmentToGive) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();

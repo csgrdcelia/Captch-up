@@ -33,7 +33,7 @@ public class GameFragment extends Fragment {
     Level currentLevel;
 
     PredictionViewHolder[] predictionViewHolders;
-    TextView tvAnswer;
+    EditText answerEditText;
 
     public static GameFragment newInstance(int levelId) {
 
@@ -66,7 +66,7 @@ public class GameFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        answerEditText = (EditText) getView().findViewById(R.id.answerEditText);
         bindPredictions();
 
         if(!currentLevel.isFinished()) {
@@ -94,7 +94,6 @@ public class GameFragment extends Fragment {
      */
     private void listenAnswer()
     {
-        final EditText answerEditText = (EditText) getView().findViewById(R.id.answerEditText);
         answerEditText.setVisibility(View.VISIBLE);
         answerEditText.setOnKeyListener(new View.OnKeyListener() {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -120,12 +119,13 @@ public class GameFragment extends Fragment {
             Toast.makeText(getContext(), getString(R.string.try_again), Toast.LENGTH_SHORT).show();
         }
         else {
-            predictionViewHolders[predictionNumber].setTextViewText();
-            tvAnswer.clearComposingText();
+            predictionViewHolders[predictionNumber].update();
+            answerEditText.setText("");
             Toast.makeText(getContext(), getString(R.string.congrats), Toast.LENGTH_SHORT).show();
 
             if(currentLevel.isFinished())
             {
+                answerEditText.setVisibility(View.INVISIBLE);
                 launchConfetti();
             }
         }
@@ -139,11 +139,12 @@ public class GameFragment extends Fragment {
     {
         CommonConfetti.rainingConfetti((ViewGroup)getActivity().findViewById(R.id.mainFragment),
                 new int[] { R.color.confetti_1,
-                            R.color.confetti_2,
-                            R.color.confetti_3,
-                            R.color.confetti_4,
-                            R.color.confetti_5 })
+                        R.color.confetti_2,
+                        R.color.confetti_3,
+                        R.color.confetti_4,
+                        R.color.confetti_5 })
                 .oneShot();
+        //TODO: fix bug color
     }
 
 
