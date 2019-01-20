@@ -1,15 +1,11 @@
 package com.esgi.project.captchup;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.view.MenuItem;
-
-import com.esgi.project.captchup.Game.GameFragment;
 import com.esgi.project.captchup.Level.LevelFragment;
 
 public class MainActivity extends FragmentActivity {
@@ -21,7 +17,7 @@ public class MainActivity extends FragmentActivity {
                         updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.UNFINISHED));
                         return true;
                     case R.id.navigation_new:
-                        updateFragment(GameFragment.newInstance(1)); //TODO: Run gallery instead
+                        updateFragment(new ImageProcessorFragment());
                         return true;
                     case R.id.navigation_achievements:
                         updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.FINISHED));

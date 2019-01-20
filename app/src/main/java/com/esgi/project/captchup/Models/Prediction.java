@@ -12,7 +12,6 @@ public class Prediction {
     public Prediction() {
     }
 
-
     public Prediction(int id, String value, Double precision, Boolean found) {
         this.id = id;
         this.value = value;

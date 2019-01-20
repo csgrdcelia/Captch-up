@@ -4,9 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Level {
-    private int id;
+    public static final String LEVELS_ROOT = "levels";
+    private String id;
     private Prediction[] predictions;
     private String imageUrl;
+
+    public Level() {
+    }
+
+    public Level(String id, Prediction[] predictions, String image) {
+        this.id = id;
+        this.predictions = predictions;
+        this.imageUrl = image;
+    }
 
     static ArrayList<Level> testLevels = getTestsLevels();
 
@@ -27,8 +37,8 @@ public class Level {
         predictionList2[1] = prediction2;
         predictionList2[2] = prediction4;
 
-        Level level1 = new Level(1, predictionList1, "url");
-        Level level2 = new Level(2, predictionList2, "url2");
+        Level level1 = new Level("1", predictionList1, "url");
+        Level level2 = new Level("2", predictionList2, "url2");
 
         ArrayList<Level> levels = new ArrayList<>();
         levels.add(level1);
@@ -37,13 +47,18 @@ public class Level {
         return levels;
     }
 
-    public Level() {
-    }
+    public static Prediction[] getPredictionList()
+    {
+        Prediction prediction1 = new Prediction(20, "Robot", 80.0, false);
+        Prediction prediction2 = new Prediction(13, "Jeu", 85.0, false);
+        Prediction prediction3 = new Prediction(15, "Test", 90.0, false);
 
-    public Level(int id, Prediction[] predictions, String image) {
-        this.id = id;
-        this.predictions = predictions;
-        this.imageUrl = image;
+        Prediction predictionList[] = new Prediction[3];
+        predictionList[0] = prediction1;
+        predictionList[1] = prediction2;
+        predictionList[2] = prediction3;
+
+        return predictionList;
     }
 
     public Prediction getPrediction(int predictionNumber)
@@ -100,7 +115,7 @@ public class Level {
         return levels;
     }
 
-    public static Level getLevel(int levelId) {
+    public static Level getLevel(String levelId) {
         //TODO: replace with database query
 
         for (Level level : testLevels) {
@@ -138,7 +153,7 @@ public class Level {
         return imageUrl;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 }

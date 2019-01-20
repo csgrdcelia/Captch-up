@@ -35,10 +35,10 @@ public class GameFragment extends Fragment {
     PredictionViewHolder[] predictionViewHolders;
     EditText answerEditText;
 
-    public static GameFragment newInstance(int levelId) {
+    public static GameFragment newInstance(String levelId) {
 
         Bundle args = new Bundle();
-        args.putInt(LEVEL_ID, levelId);
+        args.putString(LEVEL_ID, levelId);
         GameFragment fragment = new GameFragment();
         fragment.setArguments(args);
         return fragment;
@@ -54,7 +54,7 @@ public class GameFragment extends Fragment {
                              Bundle savedInstanceState) {
         //TODO: make this code cleaner
         try {
-            int levelId = this.getArguments().getInt(LEVEL_ID);
+            String levelId = this.getArguments().getString(LEVEL_ID);
             currentLevel = Level.getLevel(levelId);
         } catch (Exception e) { }
         return inflater.inflate(R.layout.fragment_game, container, false);
