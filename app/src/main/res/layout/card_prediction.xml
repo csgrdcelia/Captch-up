@@ -23,13 +23,15 @@
         <TextView
             android:id="@+id/tvPrecision"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginBottom="8dp"
+            android:layout_marginTop="5dp"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/validIV"
-            tools:text="80%" />
+            tools:text="80%"
+            android:gravity="center"/>
 
 
         </LinearLayout>
@@ -39,6 +41,18 @@
             android:layout_weight="1"
             android:orientation="horizontal"
             android:gravity="bottom">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:progressDrawable="@drawable/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="false"
+            android:scaleY="3"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:progress="80" />
+
             <ImageView
                 android:id="@+id/validIV"
                 android:layout_width="match_parent"
@@ -49,16 +63,6 @@
                 android:visibility="gone"
                 app:layout_constraintTop_toBottomOf="parent"
                 tools:visibility="visible" />
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:indeterminate="false"
-            android:scaleY="10"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:progress="80" />
         </LinearLayout>
     </LinearLayout>
 
