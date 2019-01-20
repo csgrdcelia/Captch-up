@@ -59,9 +59,4 @@ public class PredictionViewHolder {
             tvPrecision.setText(prediction.getPrecision() + "%");
     }
 
-    public void setIconImage()
-    {
-        //TODO: add icon "found" or "question mark" and adapt it there
-    }
-
 }
