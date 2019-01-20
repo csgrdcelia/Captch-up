@@ -6,26 +6,32 @@ import java.util.List;
 public class Level {
     public static final String LEVELS_ROOT = "levels";
     private String id;
-    private Prediction[] predictions;
-    private String imageUrl;
+    //private Prediction[] predictions;
+    private String image;
 
     public Level() {
     }
 
-    public Level(String id, Prediction[] predictions, String image) {
+    public Level(String id, String image)
+    {
+        this.id = id;
+        this.image = image;
+    }
+
+    /*public Level(String id, Prediction[] predictions, String image) {
         this.id = id;
         this.predictions = predictions;
         this.imageUrl = image;
-    }
+    }*/
 
-    static ArrayList<Level> testLevels = getTestsLevels();
+    //static ArrayList<Level> testLevels = getTestsLevels();
 
-    private static ArrayList<Level> getTestsLevels() {
+    /*private static ArrayList<Level> getTestsLevels() {
 
-        Prediction prediction1 = new Prediction(20, "Robot", 80.0, true);
-        Prediction prediction2 = new Prediction(13, "Jeu", 85.0, true);
-        Prediction prediction3 = new Prediction(15, "Test", 90.0, true);
-        Prediction prediction4 = new Prediction(15, "Doodle", 90.0, false);
+        Prediction prediction1 = new Prediction("20", "Robot", 80.0, true);
+        Prediction prediction2 = new Prediction("13", "Jeu", 85.0, true);
+        Prediction prediction3 = new Prediction("15", "Test", 90.0, true);
+        Prediction prediction4 = new Prediction("15", "Doodle", 90.0, false);
 
         Prediction predictionList1[] = new Prediction[3];
         predictionList1[0] = prediction1;
@@ -45,13 +51,13 @@ public class Level {
         levels.add(level2);
 
         return levels;
-    }
+    }*/
 
     public static Prediction[] getPredictionList()
     {
-        Prediction prediction1 = new Prediction(20, "Robot", 80.0, false);
-        Prediction prediction2 = new Prediction(13, "Jeu", 85.0, false);
-        Prediction prediction3 = new Prediction(15, "Test", 90.0, false);
+        Prediction prediction1 = new Prediction("20", "Robot", 80.0, false);
+        Prediction prediction2 = new Prediction("13", "Jeu", 85.0, false);
+        Prediction prediction3 = new Prediction("15", "Test", 90.0, false);
 
         Prediction predictionList[] = new Prediction[3];
         predictionList[0] = prediction1;
@@ -61,7 +67,7 @@ public class Level {
         return predictionList;
     }
 
-    public Prediction getPrediction(int predictionNumber)
+    /*public Prediction getPrediction(int predictionNumber)
     {
         if(predictionNumber >= 1 && predictionNumber <= 3)
             return predictions[predictionNumber - 1];
@@ -126,7 +132,7 @@ public class Level {
     }
 
 
-    public String getAdvancement()
+    /*public String getAdvancement()
     {
         int completed = 0;
         for (Prediction prediction : predictions)
@@ -135,22 +141,22 @@ public class Level {
                 completed += 1;
         }
         return completed + "/3";
-    }
+    }*/
 
     /**
      * Checks if all predictions are found
      */
-    public boolean isFinished() {
+    /*public boolean isFinished() {
         for(Prediction prediction : predictions) {
             if(!prediction.getFound()) {
                 return false;
             }
         }
         return true;
-    }
+    }*/
 
     public String getImage() {
-        return imageUrl;
+        return image;
     }
 
     public String getId() {

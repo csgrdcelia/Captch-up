@@ -55,7 +55,7 @@ public class GameFragment extends Fragment {
         //TODO: make this code cleaner
         try {
             String levelId = this.getArguments().getString(LEVEL_ID);
-            currentLevel = Level.getLevel(levelId);
+            //currentLevel = Level.getLevel(levelId);
         } catch (Exception e) { }
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
@@ -69,9 +69,9 @@ public class GameFragment extends Fragment {
         answerEditText = (EditText) getView().findViewById(R.id.answerEditText);
         bindPredictions();
 
-        if(!currentLevel.isFinished()) {
+        /*if(!currentLevel.isFinished()) {
             listenAnswer();
-        }
+        }*/
 
     }
 
@@ -80,13 +80,13 @@ public class GameFragment extends Fragment {
      */
     private void bindPredictions()
     {
-        predictionViewHolders = new PredictionViewHolder[3];
+        /*predictionViewHolders = new PredictionViewHolder[3];
         predictionViewHolders[0] = new PredictionViewHolder(getView().findViewById(R.id.prediction1));
         predictionViewHolders[0].bind(currentLevel.getPrediction(1));
         predictionViewHolders[1] = new PredictionViewHolder(getView().findViewById(R.id.prediction2));
         predictionViewHolders[1].bind(currentLevel.getPrediction(2));
         predictionViewHolders[2] = new PredictionViewHolder(getView().findViewById(R.id.prediction3));
-        predictionViewHolders[2].bind(currentLevel.getPrediction(3));
+        predictionViewHolders[2].bind(currentLevel.getPrediction(3));*/
     }
 
     /**
@@ -111,7 +111,7 @@ public class GameFragment extends Fragment {
      * Checks if answer is correct
      */
     private void checkAnswerValidity(String answer) {
-        int predictionNumber = currentLevel.getPredictionNumber(answer);
+        /*int predictionNumber = currentLevel.getPredictionNumber(answer);
 
         if(predictionNumber == Prediction.ALREADY_FOUND) {
             Toast.makeText(getContext(), getString(R.string.answer_already_found), Toast.LENGTH_SHORT).show();
@@ -128,7 +128,7 @@ public class GameFragment extends Fragment {
                 answerEditText.setVisibility(View.INVISIBLE);
                 launchConfetti();
             }
-        }
+        }*/
     }
 
     /**

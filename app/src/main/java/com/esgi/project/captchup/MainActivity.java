@@ -17,7 +17,7 @@ public class MainActivity extends FragmentActivity {
                         updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.UNFINISHED));
                         return true;
                     case R.id.navigation_new:
-                        updateFragment(new ImageProcessorFragment());
+                        updateFragment(new ImageProcessingFragment());
                         return true;
                     case R.id.navigation_achievements:
                         updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.FINISHED));

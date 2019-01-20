@@ -8,10 +8,11 @@ import android.widget.TextView;
 import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.R;
 import com.esgi.project.captchup.Utils.RecyclerViewClickListener;
+import com.squareup.picasso.Picasso;
 
 public class LevelViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     Level level;
-    private TextView textViewView;
+    private TextView textView;
     private ImageView imageView;
     private RecyclerViewClickListener listener;
 
@@ -19,14 +20,14 @@ public class LevelViewHolder extends RecyclerView.ViewHolder implements View.OnC
         super(itemView);
         this.listener = listener;
         itemView.setOnClickListener(this);
-        textViewView = (TextView) itemView.findViewById(R.id.text);
+        textView = (TextView) itemView.findViewById(R.id.text);
         imageView = (ImageView) itemView.findViewById(R.id.image);
     }
 
     public void bind(Level level){
         this.level = level;
-        textViewView.setText(level.getAdvancement());
-        imageView.setImageResource(R.drawable.robot);
+        //textViewView.setText(level.getAdvancement());
+        Picasso.get().load(level.getImage()).centerCrop().fit().into(imageView);
     }
 
     @Override
