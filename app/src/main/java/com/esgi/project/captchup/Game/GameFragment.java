@@ -1,18 +1,15 @@
 package com.esgi.project.captchup.Game;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.ProgressBar;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.esgi.project.captchup.Level.PredictionViewHolder;
@@ -20,8 +17,7 @@ import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.Models.Prediction;
 import com.esgi.project.captchup.R;
 import com.github.jinatonic.confetti.CommonConfetti;
-import com.github.jinatonic.confetti.ConfettiManager;
-import com.github.jinatonic.confetti.Utils;
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -29,16 +25,17 @@ import com.github.jinatonic.confetti.Utils;
  */
 public class GameFragment extends Fragment {
 
-    public static final String LEVEL_ID = "levelId";
+    public static final String LEVEL = "level";
     Level currentLevel;
 
     PredictionViewHolder[] predictionViewHolders;
     EditText answerEditText;
+    ImageView imageView;
 
-    public static GameFragment newInstance(String levelId) {
+    public static GameFragment newInstance(Level level) {
 
         Bundle args = new Bundle();
-        args.putString(LEVEL_ID, levelId);
+        args.putSerializable(LEVEL, level);
         GameFragment fragment = new GameFragment();
         fragment.setArguments(args);
         return fragment;
@@ -54,8 +51,7 @@ public class GameFragment extends Fragment {
                              Bundle savedInstanceState) {
         //TODO: make this code cleaner
         try {
-            String levelId = this.getArguments().getString(LEVEL_ID);
-            //currentLevel = Level.getLevel(levelId);
+            currentLevel = (Level) this.getArguments().getSerializable(LEVEL);
         } catch (Exception e) { }
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
@@ -66,12 +62,16 @@ public class GameFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        answerEditText = (EditText) getView().findViewById(R.id.answerEditText);
+        answerEditText = getView().findViewById(R.id.answerEditText);
+        imageView = getView().findViewById(R.id.picture);
+
+        Picasso.get().load(currentLevel.getImage()).centerCrop().fit().into(imageView);
         bindPredictions();
 
-        /*if(!currentLevel.isFinished()) {
+
+        if(!currentLevel.isFinished()) {
             listenAnswer();
-        }*/
+        }
 
     }
 
@@ -80,13 +80,13 @@ public class GameFragment extends Fragment {
      */
     private void bindPredictions()
     {
-        /*predictionViewHolders = new PredictionViewHolder[3];
+        predictionViewHolders = new PredictionViewHolder[3];
         predictionViewHolders[0] = new PredictionViewHolder(getView().findViewById(R.id.prediction1));
         predictionViewHolders[0].bind(currentLevel.getPrediction(1));
         predictionViewHolders[1] = new PredictionViewHolder(getView().findViewById(R.id.prediction2));
         predictionViewHolders[1].bind(currentLevel.getPrediction(2));
         predictionViewHolders[2] = new PredictionViewHolder(getView().findViewById(R.id.prediction3));
-        predictionViewHolders[2].bind(currentLevel.getPrediction(3));*/
+        predictionViewHolders[2].bind(currentLevel.getPrediction(3));
     }
 
     /**
@@ -111,7 +111,7 @@ public class GameFragment extends Fragment {
      * Checks if answer is correct
      */
     private void checkAnswerValidity(String answer) {
-        /*int predictionNumber = currentLevel.getPredictionNumber(answer);
+        int predictionNumber = currentLevel.getPredictionNumber(answer);
 
         if(predictionNumber == Prediction.ALREADY_FOUND) {
             Toast.makeText(getContext(), getString(R.string.answer_already_found), Toast.LENGTH_SHORT).show();
@@ -128,7 +128,7 @@ public class GameFragment extends Fragment {
                 answerEditText.setVisibility(View.INVISIBLE);
                 launchConfetti();
             }
-        }*/
+        }
     }
 
     /**

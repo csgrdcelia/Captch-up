@@ -1,6 +1,8 @@
 package com.esgi.project.captchup.Models;
 
-public class Prediction {
+import java.io.Serializable;
+
+public class Prediction implements Serializable {
     public static final String PREDICTIONS_ROOT = "predictions";
     public static final int WRONG_ANSWER = 3;
     public static final int ALREADY_FOUND = 4;

@@ -124,13 +124,8 @@ public class ImageProcessingFragment extends Fragment {
                 databasePredictions.child(predictionId).setValue(p);
             }
 
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getContext(), getString(R.string.an_error_occured), Toast.LENGTH_LONG)
-                        .show();
-            }
-        });
+        }).addOnFailureListener(e -> Toast.makeText(getContext(), getString(R.string.an_error_occured), Toast.LENGTH_LONG)
+                .show());
     }
 
 

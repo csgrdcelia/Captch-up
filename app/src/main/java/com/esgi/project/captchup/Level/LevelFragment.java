@@ -94,18 +94,17 @@ public class LevelFragment extends Fragment {
                     Level level = levelSnapshot.getValue(Level.class);
 
                     for(DataSnapshot predictionSnapshot : levelSnapshot.child("predictions").getChildren())
-                    {
                         level.addPrediction(predictionSnapshot.getValue(Prediction.class));
-                    }
+
                     if(levelFragmentType == LevelFragmentType.UNFINISHED && !level.isFinished())
                         levels.add(level);
                     else if (levelFragmentType == LevelFragmentType.FINISHED && level.isFinished())
                         levels.add(level);
                 }
 
-                RecyclerViewClickListener listener = (view,levelId) -> {
+                RecyclerViewClickListener listener = (view,level) -> {
                     MainActivity activity = (MainActivity) view.getContext();
-                    Fragment myFragment = GameFragment.newInstance(levelId);
+                    Fragment myFragment = GameFragment.newInstance((Level)level);
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, myFragment).addToBackStack(null).commit();
                 };
                 recyclerView.setAdapter(new LevelAdapter(levels, listener));

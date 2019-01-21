@@ -20,8 +20,8 @@ public class LevelViewHolder extends RecyclerView.ViewHolder implements View.OnC
         super(itemView);
         this.listener = listener;
         itemView.setOnClickListener(this);
-        textView = (TextView) itemView.findViewById(R.id.text);
-        imageView = (ImageView) itemView.findViewById(R.id.image);
+        textView = itemView.findViewById(R.id.text);
+        imageView = itemView.findViewById(R.id.image);
     }
 
     public void bind(Level level){
@@ -32,6 +32,6 @@ public class LevelViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     @Override
     public void onClick(View v) {
-        listener.onClick(v, level.getId());
+        listener.onClick(v, level);
     }
 }

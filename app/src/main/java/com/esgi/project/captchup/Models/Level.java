@@ -1,9 +1,10 @@
 package com.esgi.project.captchup.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Level {
+public class Level implements Serializable {
     public static final String LEVELS_ROOT = "levels";
     private String id;
     private String image;
@@ -58,6 +59,14 @@ public class Level {
         return true;
     }
 
+    public Prediction getPrediction(int predictionNumber)
+    {
+        if(predictionNumber >= 1 && predictionNumber <= 3)
+            return predictions.get(predictionNumber - 1);
+        else
+            return null;
+    }
+
     /*public Level(String id, Prediction[] predictions, String image) {
         this.id = id;
         this.predictions = predictions;
@@ -107,32 +116,27 @@ public class Level {
         return predictionList;
     }
 
-    /*public Prediction getPrediction(int predictionNumber)
-    {
-        if(predictionNumber >= 1 && predictionNumber <= 3)
-            return predictions[predictionNumber - 1];
-        else
-            return null;
-    }
-
+    /**
+     * Get the prediction number of the predition that matches the given answer.
+     * Returns differents codes if answer is wrong/already found
+     */
     public int getPredictionNumber(String answer)
     {
-        for (int i = 0; i < 3; i++)
-        {
-            if(predictions[i].value.equalsIgnoreCase(answer))
-            {
-                if(predictions[i].found) {
+        int predictionNumber = 1;
+        for(Prediction prediction : predictions) {
+            if(prediction.value.equalsIgnoreCase(answer)) {
+                if(prediction.found) {
                     return Prediction.ALREADY_FOUND;
-                }
-                else {
-                    predictions[i].found = true;
-                    return i;
+                } else {
+                    prediction.found = true;
+                    return predictionNumber;
                 }
             }
+            predictionNumber++;
         }
         return Prediction.WRONG_ANSWER;
     }
-
+/*
     public static ArrayList<Level> getFinishedLevels() {
         //TODO: replace with database query
         ArrayList<Level> levels = new ArrayList<>();
