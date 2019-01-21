@@ -26,7 +26,7 @@ public class LevelViewHolder extends RecyclerView.ViewHolder implements View.OnC
 
     public void bind(Level level){
         this.level = level;
-        //textViewView.setText(level.getAdvancement());
+        textView.setText(level.getAdvancement());
         Picasso.get().load(level.getImage()).centerCrop().fit().into(imageView);
     }
 

@@ -6,8 +6,9 @@ import java.util.List;
 public class Level {
     public static final String LEVELS_ROOT = "levels";
     private String id;
-    //private Prediction[] predictions;
     private String image;
+
+    private List<Prediction> predictions;
 
     public Level() {
     }
@@ -16,6 +17,45 @@ public class Level {
     {
         this.id = id;
         this.image = image;
+    }
+
+    public void addPrediction(Prediction prediction)
+    {
+        if(predictions == null)
+            predictions = new ArrayList<>();
+
+        predictions.add(prediction);
+    }
+
+    public String getAdvancement()
+    {
+        int completed = 0;
+
+        if(predictions == null)
+            predictions = new ArrayList<>();
+
+        for (Prediction prediction : predictions)
+        {
+            if(prediction.found)
+                completed += 1;
+        }
+        return completed + "/" + predictions.size();
+    }
+
+    /**
+     * Checks if all predictions are found
+     */
+    public boolean isFinished() {
+
+        if(predictions == null)
+            predictions = new ArrayList<>();
+
+        for(Prediction prediction : predictions) {
+            if(!prediction.getFound()) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /*public Level(String id, Prediction[] predictions, String image) {
@@ -143,17 +183,6 @@ public class Level {
         return completed + "/3";
     }*/
 
-    /**
-     * Checks if all predictions are found
-     */
-    /*public boolean isFinished() {
-        for(Prediction prediction : predictions) {
-            if(!prediction.getFound()) {
-                return false;
-            }
-        }
-        return true;
-    }*/
 
     public String getImage() {
         return image;

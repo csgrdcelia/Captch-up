@@ -19,6 +19,7 @@ import com.esgi.project.captchup.Game.GameFragment;
 import com.esgi.project.captchup.ImageProcessingFragment;
 import com.esgi.project.captchup.MainActivity;
 import com.esgi.project.captchup.Models.Level;
+import com.esgi.project.captchup.Models.Prediction;
 import com.esgi.project.captchup.R;
 import com.esgi.project.captchup.Utils.RecyclerViewClickListener;
 import com.google.firebase.database.DataSnapshot;
@@ -45,7 +46,7 @@ public class LevelFragment extends Fragment {
     private LevelFragmentType levelFragmentType = LevelFragmentType.UNFINISHED;
     int index = 2;
     private RecyclerView recyclerView;
-    private List<Level> levels = new ArrayList<>();
+    private List<Level> levels;
 
     private DatabaseReference databaseReference;
 
@@ -73,18 +74,33 @@ public class LevelFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         recyclerView = (RecyclerView)getView().findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),2)); // DISPLAY 2 PER ROW
 
+        levels = new ArrayList<>();
         databaseReference = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
-                    Level level = postSnapshot.getValue(Level.class);
-                    levels.add(level);
+            public void onDataChange(@NonNull DataSnapshot parent) {
+                for (DataSnapshot levelSnapshot : parent.getChildren()) {
+                    Level level = levelSnapshot.getValue(Level.class);
+
+                    for(DataSnapshot predictionSnapshot : levelSnapshot.child("predictions").getChildren())
+                    {
+                        level.addPrediction(predictionSnapshot.getValue(Prediction.class));
+                    }
+                    if(levelFragmentType == LevelFragmentType.UNFINISHED && !level.isFinished())
+                        levels.add(level);
+                    else if (levelFragmentType == LevelFragmentType.FINISHED && level.isFinished())
+                        levels.add(level);
                 }
 
                 RecyclerViewClickListener listener = (view,levelId) -> {
