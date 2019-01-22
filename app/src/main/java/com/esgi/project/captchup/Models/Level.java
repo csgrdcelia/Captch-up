@@ -122,7 +122,7 @@ public class Level implements Serializable {
      */
     public int getPredictionNumber(String answer)
     {
-        int predictionNumber = 1;
+        int predictionNumber = 0;
         for(Prediction prediction : predictions) {
             if(prediction.value.equalsIgnoreCase(answer)) {
                 if(prediction.found) {

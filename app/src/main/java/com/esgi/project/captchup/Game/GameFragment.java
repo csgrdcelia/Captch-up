@@ -1,6 +1,7 @@
 package com.esgi.project.captchup.Game;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -138,11 +139,12 @@ public class GameFragment extends Fragment {
     private void launchConfetti()
     {
         CommonConfetti.rainingConfetti((ViewGroup)getActivity().findViewById(R.id.mainFragment),
-                new int[] { R.color.confetti_1,
-                        R.color.confetti_2,
-                        R.color.confetti_3,
-                        R.color.confetti_4,
-                        R.color.confetti_5 })
+                new int[] {
+                        Color.parseColor("#a864fd"),
+                        Color.parseColor("#29cdff"),
+                        Color.parseColor("#78ff44"),
+                        Color.parseColor("#ff718d"),
+                        Color.parseColor("#fdff6a")  })
                 .oneShot();
         //TODO: fix bug color
     }
