@@ -108,7 +108,7 @@ public class Level implements Serializable {
      * Returns the prediction according to given number ( 0, 1, 2 )
      */
     public Prediction getPrediction(int predictionNumber) {
-        if(predictionNumber >= 1 && predictionNumber <= 3)
+        if(predictionNumber >= 0 && predictionNumber < 3)
             return predictions.get(predictionNumber);
         else
             return null;

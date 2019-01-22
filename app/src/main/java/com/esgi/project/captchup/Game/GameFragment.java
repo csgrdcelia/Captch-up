@@ -117,30 +117,46 @@ public class GameFragment extends Fragment {
         } else if(currentLevel.answerHasAlreadyBeenFound(answer)){
             Toast.makeText(getContext(), getString(R.string.answer_already_found), Toast.LENGTH_SHORT).show();
         } else {
+
             answerEditText.setText("");
             Toast.makeText(getContext(), getString(R.string.congrats), Toast.LENGTH_SHORT).show();
 
-            int predictionNumber = currentLevel.getPredictionNumber(answer);
-            predictionViewHolders[predictionNumber].update();
+            updatePrediction(answer);
 
-            Prediction guessedPrediction = currentLevel.getPrediction(answer);
-            guessedPrediction.setFound(true);
-            databaseReference.child(guessedPrediction.getId()).setValue(guessedPrediction);
+            updatePredictionViewHolder(answer);
 
-            if(currentLevel.isFinished()) {
-                answerEditText.setVisibility(View.INVISIBLE);
-                launchConfetti();
-            }
+            updateCurrentUI();
+        }
+    }
+
+    private void updatePrediction(String answer)
+    {
+        Prediction guessedPrediction = currentLevel.getPrediction(answer);
+        guessedPrediction.setFound(true);
+        databaseReference.child(guessedPrediction.getId()).setValue(guessedPrediction);
+    }
+
+    /**
+     * Updates current fragment ui
+     */
+    private void updateCurrentUI()
+    {
+        if(currentLevel.isFinished()) {
+            answerEditText.setVisibility(View.INVISIBLE);
+            launchConfetti();
         }
     }
 
     /**
-     *
+     *  Update the prediction viewholder that stores the given answer
      */
-    private void UpdatePredictionViewHolder(String answer)
+    private void updatePredictionViewHolder(String answer)
     {
-
+        int predictionNumber = currentLevel.getPredictionNumber(answer);
+        predictionViewHolders[predictionNumber].update();
     }
+
+
 
     /**
      * Launch a shot of confetti
