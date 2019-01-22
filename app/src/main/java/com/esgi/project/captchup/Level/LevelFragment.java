@@ -85,11 +85,12 @@ public class LevelFragment extends Fragment {
         recyclerView = (RecyclerView)getView().findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),2)); // DISPLAY 2 PER ROW
 
-        levels = new ArrayList<>();
+
         databaseReference = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot parent) {
+                levels = new ArrayList<>();
                 for (DataSnapshot levelSnapshot : parent.getChildren()) {
                     Level level = levelSnapshot.getValue(Level.class);
 
