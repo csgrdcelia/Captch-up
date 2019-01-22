@@ -93,7 +93,7 @@ public class LevelFragment extends Fragment {
                 for (DataSnapshot levelSnapshot : parent.getChildren()) {
                     Level level = levelSnapshot.getValue(Level.class);
 
-                    for(DataSnapshot predictionSnapshot : levelSnapshot.child("predictions").getChildren())
+                    for(DataSnapshot predictionSnapshot : levelSnapshot.child(Prediction.PREDICTIONS_ROOT).getChildren())
                         level.addPrediction(predictionSnapshot.getValue(Prediction.class));
 
                     if(levelFragmentType == LevelFragmentType.UNFINISHED && !level.isFinished())
@@ -115,13 +115,5 @@ public class LevelFragment extends Fragment {
                 Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        /*if(levelFragmentType == LevelFragmentType.FINISHED)
-            levels = Level.getFinishedLevels();
-        else
-            levels = Level.getUnfinishedLevels();*/
-
-
-
-
     }
 }

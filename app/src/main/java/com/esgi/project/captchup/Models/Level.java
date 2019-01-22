@@ -20,6 +20,9 @@ public class Level implements Serializable {
         this.image = image;
     }
 
+    /**
+     * Adds a prediction to te prediction list
+     */
     public void addPrediction(Prediction prediction)
     {
         if(predictions == null)
@@ -28,6 +31,9 @@ public class Level implements Serializable {
         predictions.add(prediction);
     }
 
+    /**
+     * Return number of prediction found of the total number
+     */
     public String getAdvancement()
     {
         int completed = 0;
@@ -59,49 +65,74 @@ public class Level implements Serializable {
         return true;
     }
 
-    public Prediction getPrediction(int predictionNumber)
+    /**
+     * Checks if a prediction matches the given answer
+     */
+    public boolean answerExists(String answer)
     {
+        for(Prediction prediction : predictions) {
+            if(prediction.value.equalsIgnoreCase(answer)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Checks if given answer has already been found
+     */
+    public boolean answerHasAlreadyBeenFound(String answer) {
+        for(Prediction prediction : predictions) {
+            if(prediction.value.equalsIgnoreCase(answer)) {
+                if(prediction.found == true)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns prediction related to given answer
+     */
+    public Prediction getPrediction(String answer)
+    {
+        for(Prediction prediction : predictions) {
+            if(prediction.value.equalsIgnoreCase(answer)) {
+                return prediction;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Returns the prediction according to given number ( 0, 1, 2 )
+     */
+    public Prediction getPrediction(int predictionNumber) {
         if(predictionNumber >= 1 && predictionNumber <= 3)
-            return predictions.get(predictionNumber - 1);
+            return predictions.get(predictionNumber);
         else
             return null;
     }
 
-    /*public Level(String id, Prediction[] predictions, String image) {
-        this.id = id;
-        this.predictions = predictions;
-        this.imageUrl = image;
-    }*/
+    /**
+     * Get the prediction number of the predition that matches the given answer.
+     * Returns differents codes if answer is wrong/already found
+     */
+    public int getPredictionNumber(String answer)
+    {
+        int predictionNumber = 0;
+        for(Prediction prediction : predictions) {
+            if(prediction.value.equalsIgnoreCase(answer)) {
+                return predictionNumber;
+            }
+            predictionNumber++;
+        }
+        return Prediction.WRONG_ANSWER;
+    }
 
-    //static ArrayList<Level> testLevels = getTestsLevels();
-
-    /*private static ArrayList<Level> getTestsLevels() {
-
-        Prediction prediction1 = new Prediction("20", "Robot", 80.0, true);
-        Prediction prediction2 = new Prediction("13", "Jeu", 85.0, true);
-        Prediction prediction3 = new Prediction("15", "Test", 90.0, true);
-        Prediction prediction4 = new Prediction("15", "Doodle", 90.0, false);
-
-        Prediction predictionList1[] = new Prediction[3];
-        predictionList1[0] = prediction1;
-        predictionList1[1] = prediction2;
-        predictionList1[2] = prediction3;
-
-        Prediction predictionList2[] = new Prediction[3];
-        predictionList2[0] = prediction1;
-        predictionList2[1] = prediction2;
-        predictionList2[2] = prediction4;
-
-        Level level1 = new Level("1", predictionList1, "url");
-        Level level2 = new Level("2", predictionList2, "url2");
-
-        ArrayList<Level> levels = new ArrayList<>();
-        levels.add(level1);
-        levels.add(level2);
-
-        return levels;
-    }*/
-
+    /**
+     * For test purposes
+     */
     public static Prediction[] getPredictionList()
     {
         Prediction prediction1 = new Prediction("20", "Robot", 80.0, false);
@@ -115,78 +146,6 @@ public class Level implements Serializable {
 
         return predictionList;
     }
-
-    /**
-     * Get the prediction number of the predition that matches the given answer.
-     * Returns differents codes if answer is wrong/already found
-     */
-    public int getPredictionNumber(String answer)
-    {
-        int predictionNumber = 0;
-        for(Prediction prediction : predictions) {
-            if(prediction.value.equalsIgnoreCase(answer)) {
-                if(prediction.found) {
-                    return Prediction.ALREADY_FOUND;
-                } else {
-                    prediction.found = true;
-                    return predictionNumber;
-                }
-            }
-            predictionNumber++;
-        }
-        return Prediction.WRONG_ANSWER;
-    }
-/*
-    public static ArrayList<Level> getFinishedLevels() {
-        //TODO: replace with database query
-        ArrayList<Level> levels = new ArrayList<>();
-
-        for (Level level : testLevels) {
-            if(level.isFinished())
-            {
-                levels.add(level);
-            }
-        }
-
-        return levels;
-    }
-
-    public static List<Level> getUnfinishedLevels() {
-        //TODO: replace with database query
-        ArrayList<Level> levels = new ArrayList<>();
-
-        for (Level level : testLevels) {
-            if(!level.isFinished())
-            {
-                levels.add(level);
-            }
-        }
-
-        return levels;
-    }
-
-    public static Level getLevel(String levelId) {
-        //TODO: replace with database query
-
-        for (Level level : testLevels) {
-            if(level.getId() == levelId)
-                return level;
-        }
-        return null;
-    }
-
-
-    /*public String getAdvancement()
-    {
-        int completed = 0;
-        for (Prediction prediction : predictions)
-        {
-            if(prediction.found)
-                completed += 1;
-        }
-        return completed + "/3";
-    }*/
-
 
     public String getImage() {
         return image;

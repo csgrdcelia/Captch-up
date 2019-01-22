@@ -4,8 +4,10 @@ import java.io.Serializable;
 
 public class Prediction implements Serializable {
     public static final String PREDICTIONS_ROOT = "predictions";
+    public static final int FIRST_PREDICTION = 0;
+    public static final int SECOND_PREDICTION = 1;
+    public static final int THIRD_PREDICTION = 2;
     public static final int WRONG_ANSWER = 3;
-    public static final int ALREADY_FOUND = 4;
 
     String id;
     String value;
@@ -29,6 +31,10 @@ public class Prediction implements Serializable {
         this.found = found;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public String getValue() {
         return value;
     }
@@ -39,5 +45,9 @@ public class Prediction implements Serializable {
 
     public Boolean getFound() {
         return found;
+    }
+
+    public void setFound(Boolean found) {
+        this.found = found;
     }
 }

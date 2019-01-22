@@ -18,6 +18,8 @@ import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.Models.Prediction;
 import com.esgi.project.captchup.R;
 import com.github.jinatonic.confetti.CommonConfetti;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 
@@ -32,6 +34,7 @@ public class GameFragment extends Fragment {
     PredictionViewHolder[] predictionViewHolders;
     EditText answerEditText;
     ImageView imageView;
+    private DatabaseReference databaseReference;
 
     public static GameFragment newInstance(Level level) {
 
@@ -57,18 +60,14 @@ public class GameFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
 
-    /**
-     *
-     */
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         answerEditText = getView().findViewById(R.id.answerEditText);
         imageView = getView().findViewById(R.id.picture);
-
+        databaseReference = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT + "/" + currentLevel.getId() + "/" + Prediction.PREDICTIONS_ROOT);
         Picasso.get().load(currentLevel.getImage()).centerCrop().fit().into(imageView);
         bindPredictions();
-
 
         if(!currentLevel.isFinished()) {
             listenAnswer();
@@ -82,12 +81,12 @@ public class GameFragment extends Fragment {
     private void bindPredictions()
     {
         predictionViewHolders = new PredictionViewHolder[3];
-        predictionViewHolders[0] = new PredictionViewHolder(getView().findViewById(R.id.prediction1));
-        predictionViewHolders[0].bind(currentLevel.getPrediction(1));
-        predictionViewHolders[1] = new PredictionViewHolder(getView().findViewById(R.id.prediction2));
-        predictionViewHolders[1].bind(currentLevel.getPrediction(2));
-        predictionViewHolders[2] = new PredictionViewHolder(getView().findViewById(R.id.prediction3));
-        predictionViewHolders[2].bind(currentLevel.getPrediction(3));
+        predictionViewHolders[Prediction.FIRST_PREDICTION] = new PredictionViewHolder(getView().findViewById(R.id.prediction1));
+        predictionViewHolders[Prediction.FIRST_PREDICTION].bind(currentLevel.getPrediction(Prediction.FIRST_PREDICTION));
+        predictionViewHolders[Prediction.SECOND_PREDICTION] = new PredictionViewHolder(getView().findViewById(R.id.prediction2));
+        predictionViewHolders[Prediction.SECOND_PREDICTION].bind(currentLevel.getPrediction(Prediction.SECOND_PREDICTION));
+        predictionViewHolders[Prediction.THIRD_PREDICTION] = new PredictionViewHolder(getView().findViewById(R.id.prediction3));
+        predictionViewHolders[Prediction.THIRD_PREDICTION].bind(currentLevel.getPrediction(Prediction.THIRD_PREDICTION));
     }
 
     /**
@@ -112,24 +111,35 @@ public class GameFragment extends Fragment {
      * Checks if answer is correct
      */
     private void checkAnswerValidity(String answer) {
-        int predictionNumber = currentLevel.getPredictionNumber(answer);
 
-        if(predictionNumber == Prediction.ALREADY_FOUND) {
-            Toast.makeText(getContext(), getString(R.string.answer_already_found), Toast.LENGTH_SHORT).show();
-        } else if (predictionNumber == Prediction.WRONG_ANSWER) {
+        if(!currentLevel.answerExists(answer)) {
             Toast.makeText(getContext(), getString(R.string.try_again), Toast.LENGTH_SHORT).show();
-        }
-        else {
-            predictionViewHolders[predictionNumber].update();
+        } else if(currentLevel.answerHasAlreadyBeenFound(answer)){
+            Toast.makeText(getContext(), getString(R.string.answer_already_found), Toast.LENGTH_SHORT).show();
+        } else {
             answerEditText.setText("");
             Toast.makeText(getContext(), getString(R.string.congrats), Toast.LENGTH_SHORT).show();
 
-            if(currentLevel.isFinished())
-            {
+            int predictionNumber = currentLevel.getPredictionNumber(answer);
+            predictionViewHolders[predictionNumber].update();
+
+            Prediction guessedPrediction = currentLevel.getPrediction(answer);
+            guessedPrediction.setFound(true);
+            databaseReference.child(guessedPrediction.getId()).setValue(guessedPrediction);
+
+            if(currentLevel.isFinished()) {
                 answerEditText.setVisibility(View.INVISIBLE);
                 launchConfetti();
             }
         }
+    }
+
+    /**
+     *
+     */
+    private void UpdatePredictionViewHolder(String answer)
+    {
+
     }
 
     /**
