@@ -4,26 +4,32 @@ package com.esgi.project.captchup;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.Models.Prediction;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -34,10 +40,12 @@ import static android.app.Activity.RESULT_OK;
 public class ImageProcessingFragment extends Fragment {
 
     public static final String IMAGES_ROOT = "images";
+    public static final String VISION_API_KEY = "AIzaSyDgZc15rtLGH-UPZ7w3LQPJlL1zd5KyBtU";
     private static int RESULT_LOAD_IMG = 1;
     Uri imageURI;
 
     private ImageView ivSelectedImage;
+    private TextView tvResult;
 
     private StorageReference storageReference;
     private DatabaseReference databaseLevels;
@@ -59,6 +67,7 @@ public class ImageProcessingFragment extends Fragment {
         storageReference = FirebaseStorage.getInstance().getReference(IMAGES_ROOT);
         databaseLevels = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT);
         ivSelectedImage = getView().findViewById(R.id.ivSelectedImage);
+        tvResult = getView().findViewById(R.id.textViewResult);
         loadImagefromGallery();
     }
 
@@ -79,9 +88,11 @@ public class ImageProcessingFragment extends Fragment {
                     && null != data) {
 
                 imageURI = data.getData();
-                Picasso.get().load(imageURI).into(ivSelectedImage);
+                Picasso.get().load(imageURI).centerCrop().fit().into(ivSelectedImage);
 
-                createLevel();
+                callVisionAPI();
+
+                //createLevel();
             } else {
                 Toast.makeText(getContext(), getString(R.string.no_image_selected),
                         Toast.LENGTH_LONG).show();
@@ -91,6 +102,18 @@ public class ImageProcessingFragment extends Fragment {
                     .show();
         }
 
+    }
+
+    public void callVisionAPI() {
+        try {
+            VisionAPIProcess process = new VisionAPIProcess(imageURI, getContext());
+            String apiReturn = process.execute().get();
+            tvResult.setText(apiReturn);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getFileExtension(Uri uri)
