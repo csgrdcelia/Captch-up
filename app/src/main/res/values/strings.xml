@@ -98,4 +98,7 @@
     <string name="found">trouvé</string>
     <string name="no_image_selected">Vous n\'avez pas sélectionné d\'image :(</string>
     <string name="an_error_occured">Oups ! Une erreur s\'est produite</string>
+    <string name="google_analyze">Google analyse votre image...</string>
+    <string name="level_ready">Yay ! Votre niveau est prêt !</string>
+    <string name="google_needs_training">Désolés, l\'IA de Google a encore besoin d\'entraînement :(  Essayez encore !</string>
 </resources>

@@ -33,10 +33,12 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
     Uri imageURI;
     Context context;
     public static final String VISION_API_KEY = "AIzaSyDgZc15rtLGH-UPZ7w3LQPJlL1zd5KyBtU";
+    ImageProcessingFragment activity;
 
-    public VisionAPIProcess(Uri imageURI, Context context) {
+    public VisionAPIProcess(Uri imageURI, Context context, ImageProcessingFragment activity) {
         this.imageURI = imageURI;
         this.context = context;
+        this.activity = activity;
     }
 
     private Image getImageEncodeImage(Uri image) throws FileNotFoundException {
@@ -72,6 +74,7 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
         try {
             annotateImageReq.setImage(getImageEncodeImage(imageURI));
         } catch (FileNotFoundException e) {
+            Log.e("error", e.getMessage());
             e.printStackTrace();
         }
         annotateImageRequests.add(annotateImageReq);
@@ -93,6 +96,7 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
         try {
             annotateRequest = vision.images().annotate(batchAnnotateImagesRequest);
         } catch (IOException e) {
+            Log.e("error", e.getMessage());
             e.printStackTrace();
         }
         annotateRequest.setDisableGZipContent(true);
@@ -100,9 +104,16 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
         try {
             response = annotateRequest.execute();
         } catch (IOException e) {
+            Log.e("error", e.getMessage());
             e.printStackTrace();
         }
 
         return response.toString();
+    }
+
+    @Override
+    protected void onPostExecute(String s) {
+        super.onPostExecute(s);
+        activity.createLevel(s);
     }
 }
