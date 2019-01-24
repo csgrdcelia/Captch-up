@@ -1,6 +1,15 @@
 package com.esgi.project.captchup.Models;
 
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 public class Prediction implements Serializable {
     public static final String PREDICTIONS_ROOT = "predictions";
@@ -29,6 +38,41 @@ public class Prediction implements Serializable {
         this.value = value;
         this.precision = precision;
         this.found = found;
+    }
+
+    public Prediction(String value, Double precision, Boolean found) {
+        this.value = value;
+        this.precision = precision;
+        this.found = found;
+    }
+
+    public static List<Prediction> getFirst3Predictions(String json) {
+        try {
+            List<Prediction> predictions = new ArrayList<>();
+            JSONObject jsonObject = new JSONObject(json);
+            JSONArray responses = jsonObject.getJSONArray("responses");
+            JSONObject value = responses.getJSONObject(0);
+            JSONArray annotations = value.getJSONArray("labelAnnotations");
+
+            for (int i = 0; i < annotations.length(); i++) {
+
+                JSONObject c = annotations.getJSONObject(i);
+                String description = c.getString("description");
+                Double score = c.getDouble("score");
+
+                if(score > 0.80 && !description.trim().contains(" ")) {
+                    Prediction p = new Prediction(description, score, false);
+                    predictions.add(p);
+
+                    if(predictions.size() == 3)
+                        return predictions;
+                }
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public String getId() {

@@ -58,8 +58,8 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        if(android.os.Debug.isDebuggerConnected())
-            android.os.Debug.waitForDebugger();
+        //if(android.os.Debug.isDebuggerConnected())
+          //  android.os.Debug.waitForDebugger();
 
         Feature feature = new Feature();
         feature.setType("LABEL_DETECTION");
