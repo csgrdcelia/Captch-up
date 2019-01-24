@@ -151,8 +151,8 @@ public class ImageProcessingFragment extends Fragment {
                 Uri downloadUrl = urlTask.getResult();
 
                 String levelId = databaseLevels.push().getKey();
-                Level level = new Level(levelId, String.valueOf(downloadUrl));
-                databaseLevels.child(levelId).setValue(level);
+                createdLevel = new Level(levelId, String.valueOf(downloadUrl));
+                databaseLevels.child(levelId).setValue(createdLevel);
 
                 DatabaseReference databasePredictions = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT + "/" + levelId + "/" + Prediction.PREDICTIONS_ROOT);
                 for (Prediction prediction : predictions) {

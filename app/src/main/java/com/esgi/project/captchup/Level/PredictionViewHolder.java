@@ -10,6 +10,8 @@ import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.Models.Prediction;
 import com.esgi.project.captchup.R;
 
+import java.text.DecimalFormat;
+
 public class PredictionViewHolder {
     View v;
     Prediction prediction;
@@ -31,7 +33,7 @@ public class PredictionViewHolder {
     public void bind(Prediction prediction){
         if(prediction != null) {
             this.prediction = prediction;
-            pbPrecision.setProgress(prediction.getPrecision().intValue());
+            pbPrecision.setProgress((int)(prediction.getPrecision() * 100));
             update();
         }
 
@@ -56,7 +58,7 @@ public class PredictionViewHolder {
         if(prediction.getFound())
             tvPrecision.setText(prediction.getValue());
         else
-            tvPrecision.setText(prediction.getPrecision() + "%");
+            tvPrecision.setText(new DecimalFormat("#.##").format (prediction.getPrecision() * 100) + "%");
     }
 
 }
