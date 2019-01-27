@@ -158,6 +158,7 @@ public class ImageProcessingFragment extends Fragment {
                 for (Prediction prediction : predictions) {
                     String predictionId = databasePredictions.push().getKey();
                     Prediction p = new Prediction(predictionId, prediction.getValue(), prediction.getPrecision());
+                    createdLevel.addPrediction(p);
                     databasePredictions.child(predictionId).setValue(p);
                 }
 
