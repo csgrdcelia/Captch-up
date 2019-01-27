@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.esgi.project.captchup.Level.PredictionViewHolder;
 import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.Models.Prediction;
 import com.esgi.project.captchup.R;
+import com.esgi.project.captchup.Utils.CacheImage;
 import com.github.jinatonic.confetti.CommonConfetti;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -66,7 +68,8 @@ public class GameFragment extends Fragment {
         answerEditText = getView().findViewById(R.id.answerEditText);
         imageView = getView().findViewById(R.id.picture);
         databaseReference = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT + "/" + currentLevel.getId() + "/" + Prediction.PREDICTIONS_ROOT);
-        Picasso.get().load(currentLevel.getImage()).centerCrop().fit().into(imageView);
+        //TODO get from cache
+        Picasso.get().load(new CacheImage(currentLevel.getImage(), getContext()).getPath()).centerCrop().fit().into(imageView);
         bindPredictions();
 
         if(!currentLevel.isFinished()) {
@@ -156,8 +159,6 @@ public class GameFragment extends Fragment {
         predictionViewHolders[predictionNumber].update();
     }
 
-
-
     /**
      * Launch a shot of confetti
      * Library : Confetti by jinatonic
@@ -172,7 +173,6 @@ public class GameFragment extends Fragment {
                         Color.parseColor("#ff718d"),
                         Color.parseColor("#fdff6a")  })
                 .oneShot();
-        //TODO: fix bug color
     }
 
 

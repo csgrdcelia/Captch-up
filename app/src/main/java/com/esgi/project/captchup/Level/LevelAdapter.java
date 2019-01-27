@@ -1,5 +1,6 @@
 package com.esgi.project.captchup.Level;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,17 +16,19 @@ import java.util.List;
 public class LevelAdapter extends RecyclerView.Adapter<LevelViewHolder> {
     List<Level> list;
     private RecyclerViewClickListener listener;
+    private Context context;
 
-    public LevelAdapter(List<Level> list, RecyclerViewClickListener listener) {
+    public LevelAdapter(List<Level> list, RecyclerViewClickListener listener, Context context) {
         this.list = list;
         this.listener = listener;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public LevelViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_level,viewGroup,false);
-        return new LevelViewHolder(view, listener);
+        return new LevelViewHolder(view, listener, context);
     }
 
     @Override

@@ -1,10 +1,13 @@
 package com.esgi.project.captchup.Models;
 
+import com.esgi.project.captchup.Utils.CacheImage;
+
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Level implements Serializable {
+public class Level implements Serializable{
     public static final String LEVELS_ROOT = "levels";
     private String id;
     private String image;
@@ -154,4 +157,13 @@ public class Level implements Serializable {
     public String getId() {
         return id;
     }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
 }

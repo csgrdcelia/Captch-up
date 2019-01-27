@@ -108,7 +108,7 @@ public class LevelFragment extends Fragment {
                     Fragment myFragment = GameFragment.newInstance((Level)level);
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, myFragment).addToBackStack(null).commit();
                 };
-                recyclerView.setAdapter(new LevelAdapter(levels, listener));
+                recyclerView.setAdapter(new LevelAdapter(levels, listener, getContext()));
             }
 
             @Override
