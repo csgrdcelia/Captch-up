@@ -6,47 +6,44 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.concurrent.ExecutionException;
 
 public class CacheImage {
 
-    String urlFromImage;
-    String cacheDir;
+    public String urlFromImage;
     Context context;
     Bitmap bitmap;
     File fileCache;
+    ImageView iv;
 
-    public CacheImage(String url, Context context)
-    {
+    public CacheImage(ImageView iv, String url, Context context) {
+        this.iv = iv;
         this.urlFromImage = url;
-        this.cacheDir = context.getCacheDir().getPath();
         this.context = context;
     }
 
-    public String getPath() {
-        fileCache = new File(cacheDir + "/" + getFileName());
-        if(!fileCache.exists()){
-            try {
-                new BitmapGetter().execute().get();
-                saveImageToCache();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+    public void run() {
+        fileCache = new File(context.getCacheDir() + "/" + getFileName());
+        if (!fileCache.exists()) {
+            new CacheSaver().execute();
+        } else {
+            Picasso.get().load(fileCache).centerCrop().fit().into(iv);
         }
-        return fileCache.getPath();
     }
 
 
@@ -56,77 +53,51 @@ public class CacheImage {
         return urlFromImage.substring(start, end);
     }
 
-    public void saveImageToCache() {
+
+    protected void saveImageToInternalStorage(Bitmap bitmap) {
+
+        File file = new File(context.getCacheDir(), getFileName());
+
         try {
-            if (bitmap != null) {
+            OutputStream stream = null;
 
-                FileOutputStream out = null;
+            stream = new FileOutputStream(file);
 
-                out = new FileOutputStream(fileCache);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
 
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out);
+            stream.flush();
 
-                out.flush();
-                out.close();
+            stream.close();
 
-                //File parent = filename.getParentFile();
-
-                ContentValues image = getImageContent(fileCache);
-        }
-            //Uri result = context.getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, image);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch(IOException e) {
-            e.printStackTrace();
-        } catch(Exception e) {
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
 
-    public ContentValues getImageContent(File parent) {
-
-        ContentValues image = new ContentValues();
-
-        image.put(MediaStore.Images.Media.DISPLAY_NAME, getFileName());
-        image.put(MediaStore.Images.Media.DESCRIPTION, "App Image");
-        image.put(MediaStore.Images.Media.DATE_ADDED, System.currentTimeMillis());
-        image.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
-        image.put(MediaStore.Images.Media.ORIENTATION, 0);
-        image.put(MediaStore.Images.ImageColumns.BUCKET_ID, parent.toString()
-                .toLowerCase().hashCode());
-        image.put(MediaStore.Images.ImageColumns.BUCKET_DISPLAY_NAME, parent.getName()
-                .toLowerCase());
-        image.put(MediaStore.Images.Media.SIZE, parent.length());
-        image.put(MediaStore.Images.Media.DATA, parent.getAbsolutePath());
-
-        return image;
-
-    }
-
-    public Bitmap getBitmapFromURL() {
-        try {
-            URL url = new URL(urlFromImage);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            return myBitmap;
-        } catch (IOException e) {
-            return null;
-        }
-    }
-
-    class BitmapGetter extends AsyncTask<String, String, Bitmap> {
+    class CacheSaver extends AsyncTask<Void, String, Bitmap> {
 
         @Override
-        protected Bitmap doInBackground(String... strings) {
-            if(android.os.Debug.isDebuggerConnected())
-                android.os.Debug.waitForDebugger();
+        protected Bitmap doInBackground(Void... voids) {
+            HttpURLConnection connection = null;
+
             try {
-                return Picasso.get().load(urlFromImage).get();
+                connection = (HttpURLConnection) new URL(urlFromImage).openConnection();
+
+                connection.connect();
+
+                InputStream inputStream = connection.getInputStream();
+
+                BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+
+                Bitmap bmp = BitmapFactory.decodeStream(bufferedInputStream);
+
+                return bmp;
+
             } catch (IOException e) {
                 e.printStackTrace();
+            } finally {
+                connection.disconnect();
             }
             return null;
         }
@@ -134,11 +105,14 @@ public class CacheImage {
         @Override
         protected void onPostExecute(Bitmap result) {
             super.onPostExecute(result);
-            bitmap = result;
-            //saveImageToCache();
+            if (result != null) {
+                saveImageToInternalStorage(result);
+                Picasso.get().load(fileCache).centerCrop().fit().into(iv);
+            }
         }
     }
-
 }
+
+
 
 

@@ -12,6 +12,9 @@ import com.esgi.project.captchup.Utils.CacheImage;
 import com.esgi.project.captchup.Utils.RecyclerViewClickListener;
 import com.squareup.picasso.Picasso;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
 public class LevelViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     Level level;
     private TextView textView;
@@ -31,11 +34,15 @@ public class LevelViewHolder extends RecyclerView.ViewHolder implements View.OnC
     public void bind(Level level){
         this.level = level;
         textView.setText(level.getAdvancement());
+
+        new CacheImage(imageView, level.getImage(), context).run();
+            //new CacheSaver(imageView, context).execute(new URL(level.getImage()));
+
         //TODO load from cache
-        Picasso.get()
+        /*Picasso.get()
                 .load(new CacheImage(level.getImage(), context).getPath())
                 .placeholder(R.drawable.robot)
-                .centerCrop().fit().into(imageView);
+                .centerCrop().fit().into(imageView);*/
     }
 
     @Override

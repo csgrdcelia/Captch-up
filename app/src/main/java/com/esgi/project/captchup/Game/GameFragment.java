@@ -69,7 +69,8 @@ public class GameFragment extends Fragment {
         imageView = getView().findViewById(R.id.picture);
         databaseReference = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT + "/" + currentLevel.getId() + "/" + Prediction.PREDICTIONS_ROOT);
         //TODO get from cache
-        Picasso.get().load(new CacheImage(currentLevel.getImage(), getContext()).getPath()).centerCrop().fit().into(imageView);
+        new CacheImage(imageView,currentLevel.getImage(), getContext()).run();
+        //Picasso.get().load(new CacheImage(currentLevel.getImage(), getContext()).getPath()).centerCrop().fit().into(imageView);
         bindPredictions();
 
         if(!currentLevel.isFinished()) {
