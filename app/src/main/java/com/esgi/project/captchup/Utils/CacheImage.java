@@ -46,7 +46,6 @@ public class CacheImage {
         }
     }
 
-
     public String getFileName() {
         int start = "https://firebasestorage.googleapis.com/v0/b/captchup-22a63.appspot.com/o/images%".length();
         int end = urlFromImage.indexOf('?');
@@ -83,13 +82,9 @@ public class CacheImage {
 
             try {
                 connection = (HttpURLConnection) new URL(urlFromImage).openConnection();
-
                 connection.connect();
-
                 InputStream inputStream = connection.getInputStream();
-
                 BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-
                 Bitmap bmp = BitmapFactory.decodeStream(bufferedInputStream);
 
                 return bmp;

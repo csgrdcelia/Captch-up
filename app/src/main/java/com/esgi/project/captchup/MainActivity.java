@@ -35,7 +35,9 @@ public class MainActivity extends FragmentActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         Fragment existingFragment = getSupportFragmentManager().findFragmentById(R.id.mainFragment);
-        if (existingFragment == null) {
+        if(getIntent().getBooleanExtra("WIDGET", false))
+            updateFragment(new ImageProcessingFragment());
+        else if (existingFragment == null) {
             updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.UNFINISHED));
         }
     }

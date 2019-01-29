@@ -100,4 +100,7 @@
     <string name="google_analyze">Google analyse votre image...</string>
     <string name="level_ready">Yay ! Votre niveau est prêt !</string>
     <string name="google_needs_training">Désolés, l\'IA de Google a encore besoin d\'entraînement :(  Essayez encore !</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
 </resources>
