@@ -8,21 +8,16 @@ import android.widget.TextView;
 
 import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.R;
-import com.esgi.project.captchup.Utils.CacheImage;
-import com.esgi.project.captchup.Utils.RecyclerViewClickListener;
-import com.squareup.picasso.Picasso;
-
-import java.net.MalformedURLException;
-import java.net.URL;
+import com.esgi.project.captchup.ImageProcessing.CacheImage;
 
 public class LevelViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     Level level;
     private TextView textView;
     private ImageView imageView;
-    private RecyclerViewClickListener listener;
+    private LevelClickListener listener;
     private Context context;
 
-    public LevelViewHolder(View itemView, RecyclerViewClickListener listener, Context context) {
+    public LevelViewHolder(View itemView, LevelClickListener listener, Context context) {
         super(itemView);
         this.listener = listener;
         itemView.setOnClickListener(this);

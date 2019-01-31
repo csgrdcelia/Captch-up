@@ -1,4 +1,4 @@
-package com.esgi.project.captchup;
+package com.esgi.project.captchup.ImageProcessing;
 
 
 import android.content.ContentResolver;
@@ -18,8 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.esgi.project.captchup.Game.GameFragment;
+import com.esgi.project.captchup.MainActivity;
 import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.Models.Prediction;
+import com.esgi.project.captchup.R;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;

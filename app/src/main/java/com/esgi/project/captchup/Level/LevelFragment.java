@@ -5,23 +5,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.esgi.project.captchup.Game.GameFragment;
-import com.esgi.project.captchup.ImageProcessingFragment;
 import com.esgi.project.captchup.MainActivity;
 import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.Models.Prediction;
 import com.esgi.project.captchup.R;
-import com.esgi.project.captchup.Utils.RecyclerViewClickListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -103,7 +98,7 @@ public class LevelFragment extends Fragment {
                         levels.add(level);
                 }
 
-                RecyclerViewClickListener listener = (view,level) -> {
+                LevelClickListener listener = (view, level) -> {
                     MainActivity activity = (MainActivity) view.getContext();
                     Fragment myFragment = GameFragment.newInstance((Level)level);
                     activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, myFragment).addToBackStack(null).commit();

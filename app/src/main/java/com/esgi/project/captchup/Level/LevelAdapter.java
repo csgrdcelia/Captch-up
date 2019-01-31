@@ -9,16 +9,15 @@ import android.view.ViewGroup;
 
 import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.R;
-import com.esgi.project.captchup.Utils.RecyclerViewClickListener;
 
 import java.util.List;
 
 public class LevelAdapter extends RecyclerView.Adapter<LevelViewHolder> {
     List<Level> list;
-    private RecyclerViewClickListener listener;
+    private LevelClickListener listener;
     private Context context;
 
-    public LevelAdapter(List<Level> list, RecyclerViewClickListener listener, Context context) {
+    public LevelAdapter(List<Level> list, LevelClickListener listener, Context context) {
         this.list = list;
         this.listener = listener;
         this.context = context;

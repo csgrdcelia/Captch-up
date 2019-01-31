@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,11 +17,10 @@ import com.esgi.project.captchup.Level.PredictionViewHolder;
 import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.Models.Prediction;
 import com.esgi.project.captchup.R;
-import com.esgi.project.captchup.Utils.CacheImage;
+import com.esgi.project.captchup.ImageProcessing.CacheImage;
 import com.github.jinatonic.confetti.CommonConfetti;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 
 
 /**

@@ -1,8 +1,5 @@
 package com.esgi.project.captchup.Models;
 
-import com.esgi.project.captchup.Utils.CacheImage;
-
-import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

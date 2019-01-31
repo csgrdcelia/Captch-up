@@ -1,4 +1,4 @@
-package com.esgi.project.captchup;
+package com.esgi.project.captchup.Widget;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -7,6 +7,9 @@ import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.RemoteViews;
+
+import com.esgi.project.captchup.MainActivity;
+import com.esgi.project.captchup.R;
 
 /**
  * Implementation of App Widget functionality.

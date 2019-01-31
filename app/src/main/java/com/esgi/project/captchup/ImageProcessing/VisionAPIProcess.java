@@ -1,4 +1,4 @@
-package com.esgi.project.captchup;
+package com.esgi.project.captchup.ImageProcessing;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.esgi.project.captchup.ImageProcessing.ImageProcessingFragment;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -22,7 +23,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import android.net.Uri;
-import android.widget.TextView;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -34,6 +34,7 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
     Context context;
     public static final String VISION_API_KEY = "AIzaSyDgZc15rtLGH-UPZ7w3LQPJlL1zd5KyBtU";
     ImageProcessingFragment activity;
+
 
     public VisionAPIProcess(Uri imageURI, Context context, ImageProcessingFragment activity) {
         this.imageURI = imageURI;

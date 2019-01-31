@@ -1,4 +1,4 @@
-package com.esgi.project.captchup.Utils;
+package com.esgi.project.captchup.ImageProcessing;
 
 import android.content.ContentValues;
 import android.content.Context;
