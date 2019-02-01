@@ -53,10 +53,7 @@ public class GameFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        //TODO: make this code cleaner
-        try {
-            currentLevel = (Level) this.getArguments().getSerializable(LEVEL);
-        } catch (Exception e) { }
+        currentLevel = (Level) this.getArguments().getSerializable(LEVEL);
         return inflater.inflate(R.layout.fragment_game, container, false);
     }
 
@@ -66,9 +63,9 @@ public class GameFragment extends Fragment {
         answerEditText = getView().findViewById(R.id.answerEditText);
         imageView = getView().findViewById(R.id.picture);
         databaseReference = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT + "/" + currentLevel.getId() + "/" + Prediction.PREDICTIONS_ROOT);
-        //TODO get from cache
+
         new CacheImage(imageView,currentLevel.getImage(), getContext()).run();
-        //Picasso.get().load(new CacheImage(currentLevel.getImage(), getContext()).getPath()).centerCrop().fit().into(imageView);
+
         bindPredictions();
 
         if(!currentLevel.isFinished()) {

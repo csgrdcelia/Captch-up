@@ -60,11 +60,7 @@ public class LevelFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //TODO: make this code cleaner
-        try {
-
-            levelFragmentType = (LevelFragmentType)this.getArguments().get(LEVEL_FRAGMENT_TYPE);
-        }catch (Exception e) { }
+        levelFragmentType = (LevelFragmentType)this.getArguments().get(LEVEL_FRAGMENT_TYPE);
         return inflater.inflate(R.layout.fragment_level, container, false);
     }
 

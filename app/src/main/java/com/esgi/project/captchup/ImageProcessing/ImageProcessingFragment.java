@@ -74,7 +74,6 @@ public class ImageProcessingFragment extends Fragment {
         tvResult = getView().findViewById(R.id.textViewResult);
         pbProcessing = getView().findViewById(R.id.pbProcessing);
         ibPlay = getView().findViewById(R.id.ibPlay);
-        loadImagefromGallery();
 
         ibPlay.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,6 +85,12 @@ public class ImageProcessingFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        loadImagefromGallery();
     }
 
     /**

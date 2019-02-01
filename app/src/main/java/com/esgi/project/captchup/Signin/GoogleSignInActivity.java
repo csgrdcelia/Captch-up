@@ -1,6 +1,8 @@
 package com.esgi.project.captchup.Signin;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -68,6 +70,22 @@ public class GoogleSignInActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         account = GoogleSignIn.getLastSignedInAccount(this);
             updateUI();
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder
+                .setTitle("Quitter")
+                .setMessage("Voulez-vous quitter l'application ?")
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("Non", null)
+                .show();
     }
 
     private void updateUI() {

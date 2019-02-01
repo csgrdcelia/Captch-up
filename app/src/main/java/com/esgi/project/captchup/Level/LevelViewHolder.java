@@ -31,13 +31,6 @@ public class LevelViewHolder extends RecyclerView.ViewHolder implements View.OnC
         textView.setText(level.getAdvancement());
 
         new CacheImage(imageView, level.getImage(), context).run();
-            //new CacheSaver(imageView, context).execute(new URL(level.getImage()));
-
-        //TODO load from cache
-        /*Picasso.get()
-                .load(new CacheImage(level.getImage(), context).getPath())
-                .placeholder(R.drawable.robot)
-                .centerCrop().fit().into(imageView);*/
     }
 
     @Override
