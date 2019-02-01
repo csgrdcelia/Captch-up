@@ -19,6 +19,7 @@ import com.esgi.project.captchup.Models.Prediction;
 import com.esgi.project.captchup.R;
 import com.esgi.project.captchup.ImageProcessing.CacheImage;
 import com.github.jinatonic.confetti.CommonConfetti;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -62,7 +63,7 @@ public class GameFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         answerEditText = getView().findViewById(R.id.answerEditText);
         imageView = getView().findViewById(R.id.picture);
-        databaseReference = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT + "/" + currentLevel.getId() + "/" + Prediction.PREDICTIONS_ROOT);
+        databaseReference = FirebaseDatabase.getInstance().getReference(GoogleSignIn.getLastSignedInAccount(getContext()).getId() + "/" + Level.LEVELS_ROOT + "/" + currentLevel.getId() + "/" + Prediction.PREDICTIONS_ROOT);
 
         new CacheImage(imageView,currentLevel.getImage(), getContext()).run();
 

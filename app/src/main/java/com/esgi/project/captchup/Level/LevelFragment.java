@@ -17,6 +17,8 @@ import com.esgi.project.captchup.MainActivity;
 import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.Models.Prediction;
 import com.esgi.project.captchup.R;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -76,8 +78,7 @@ public class LevelFragment extends Fragment {
         recyclerView = (RecyclerView)getView().findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),2)); // DISPLAY 2 PER ROW
 
-
-        databaseReference = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT);
+        databaseReference = FirebaseDatabase.getInstance().getReference(GoogleSignIn.getLastSignedInAccount(getContext()).getId() + "/" + Level.LEVELS_ROOT);
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot parent) {
