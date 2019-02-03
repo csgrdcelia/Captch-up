@@ -63,7 +63,9 @@ public class GameFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         answerEditText = getView().findViewById(R.id.answerEditText);
         imageView = getView().findViewById(R.id.picture);
-        databaseReference = FirebaseDatabase.getInstance().getReference(GoogleSignIn.getLastSignedInAccount(getContext()).getId() + "/" + Level.LEVELS_ROOT + "/" + currentLevel.getId() + "/" + Prediction.PREDICTIONS_ROOT);
+        databaseReference = FirebaseDatabase.getInstance().getReference( Level.LEVELS_ROOT + "/" + GoogleSignIn.getLastSignedInAccount(getContext()).getId() + "/" + currentLevel.getId() + "/" + Prediction.PREDICTIONS_ROOT);
+
+        //databaseReference = FirebaseDatabase.getInstance().getReference(GoogleSignIn.getLastSignedInAccount(getContext()).getId() + "/" + Level.LEVELS_ROOT + "/" + currentLevel.getId() + "/" + Prediction.PREDICTIONS_ROOT);
 
         new CacheImage(imageView,currentLevel.getImage(), getContext()).run();
 

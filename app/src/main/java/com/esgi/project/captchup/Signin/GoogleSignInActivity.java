@@ -27,6 +27,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 /**
  * Firebase Authentication using a Google ID Token
@@ -36,6 +38,7 @@ public class GoogleSignInActivity extends AppCompatActivity {
     public static final int REQUEST_CODE = 1;
     private GoogleSignInClient mGoogleSignInClient;
     GoogleSignInAccount account;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,8 @@ public class GoogleSignInActivity extends AppCompatActivity {
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        databaseReference = FirebaseDatabase.getInstance().getReference( "users/");
+
 
         findViewById(R.id.signInButton).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +61,11 @@ public class GoogleSignInActivity extends AppCompatActivity {
                 startActivityForResult(intent, REQUEST_CODE);
             }
         });
+    }
+
+    private void addUser() {
+        String id = GoogleSignIn.getLastSignedInAccount(getApplicationContext()).getId();
+        databaseReference.child(id).setValue(id);
     }
 
     @Override
@@ -90,6 +100,7 @@ public class GoogleSignInActivity extends AppCompatActivity {
 
     private void updateUI() {
         if (account != null) {
+            addUser();
             // OPEN MAIN ACTIVITY
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);

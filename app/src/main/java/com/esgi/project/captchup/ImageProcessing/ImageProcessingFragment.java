@@ -70,7 +70,7 @@ public class ImageProcessingFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         storageReference = FirebaseStorage.getInstance().getReference(IMAGES_ROOT);
-        databaseLevels = FirebaseDatabase.getInstance().getReference(GoogleSignIn.getLastSignedInAccount(getContext()).getId() + "/" + Level.LEVELS_ROOT);
+        databaseLevels = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT + "/" + GoogleSignIn.getLastSignedInAccount(getContext()).getId());
         ivSelectedImage = getView().findViewById(R.id.ivSelectedImage);
         tvResult = getView().findViewById(R.id.textViewResult);
         pbProcessing = getView().findViewById(R.id.pbProcessing);
@@ -159,7 +159,7 @@ public class ImageProcessingFragment extends Fragment {
                 createdLevel = new Level(levelId, String.valueOf(downloadUrl));
                 databaseLevels.child(levelId).setValue(createdLevel);
 
-                DatabaseReference databasePredictions = FirebaseDatabase.getInstance().getReference(GoogleSignIn.getLastSignedInAccount(getContext()).getId() + "/" + Level.LEVELS_ROOT + "/" + levelId + "/" + Prediction.PREDICTIONS_ROOT);
+                DatabaseReference databasePredictions = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT + "/" + GoogleSignIn.getLastSignedInAccount(getContext()).getId() + "/" + levelId + "/" + Prediction.PREDICTIONS_ROOT);
                 for (Prediction prediction : predictions) {
                     String predictionId = databasePredictions.push().getKey();
                     Prediction p = new Prediction(predictionId, prediction.getValue(), prediction.getPrecision());
