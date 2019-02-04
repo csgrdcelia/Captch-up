@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,6 +72,8 @@ public class ImageProcessingFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setActionBarTitle();
+
         storageReference = FirebaseStorage.getInstance().getReference(IMAGES_ROOT);
         databaseLevels = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT + "/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
         ivSelectedImage = getView().findViewById(R.id.ivSelectedImage);
@@ -178,6 +182,11 @@ public class ImageProcessingFragment extends Fragment {
             pbProcessing.setVisibility(View.GONE);
             tvResult.setText(getString(R.string.google_needs_training));
         }
+    }
+
+    private void setActionBarTitle() {
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+            actionBar.setTitle(R.string.import_image);
     }
 
 

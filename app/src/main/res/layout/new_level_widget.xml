@@ -4,24 +4,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="@dimen/widget_margin">
-    <!--<ImageButton
-        android:id="@+id/addLevel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="top"
-        android:background="#00000000"
-        android:visibility="visible"
-        app:srcCompat="@drawable/robotwidget" />-->
     <Button
         android:id="@+id/addLevel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="NOUVEAU NIVEAU" />
-    <!--<ImageView
-        android:id="@+id/addLevel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        app:srcCompat="@drawable/ic_star_border_black_24dp" />-->
+        android:background="#00000000"
+        android:drawableTop="@drawable/robotwidget" /> <!-- Button because ImageView and ImageButton did not displayed images on homescreen -->
 </LinearLayout>

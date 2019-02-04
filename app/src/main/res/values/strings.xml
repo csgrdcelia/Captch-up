@@ -109,4 +109,9 @@
     <string name="Yes">Oui</string>
     <string name="No">Non</string>
     <string name="web_client_id">637823783449-stsmot4hbiij70iqkpja6701lul1hh9t.apps.googleusercontent.com</string>
+    <string name="finished_levels">Niveaux réussis</string>
+    <string name="unfinished_levels">Niveaux en cours</string>
+    <string name="import_image">Importer une image</string>
+    <string name="logout">Déconnexion</string>
+    <string name="are_you_sure_logout">Êtes-vous sûrs de vouloir vous déconnecter ?</string>
 </resources>

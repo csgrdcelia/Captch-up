@@ -1,5 +1,7 @@
 package com.esgi.project.captchup;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
@@ -7,6 +9,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.Window;
 import android.widget.Toast;
 
 import com.esgi.project.captchup.ImageProcessing.ImageProcessingFragment;
@@ -14,8 +20,10 @@ import com.esgi.project.captchup.Level.LevelFragment;
 import com.esgi.project.captchup.Signin.GoogleSignInActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends AppCompatActivity {
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = item -> {
@@ -38,12 +46,10 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        FirebaseUser account = FirebaseAuth.getInstance().getCurrentUser();
         if(account == null) {
             Toast.makeText(this, getString(R.string.please_sign_in), Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, GoogleSignInActivity.class);
-            startActivity(intent);
-            finish();
+            goBackToSignIn();
         } else {
 
             BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
@@ -58,6 +64,11 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar_actions, menu);
+        return true;
+    }
 
     /**
      *  Bind the given fragment into R.id.mainFragment
@@ -68,5 +79,40 @@ public class MainActivity extends FragmentActivity {
         fragmentTransaction.replace(R.id.mainFragment, fragmentToGive);
         fragmentTransaction.disallowAddToBackStack();
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_logout:
+                logout();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logout() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder
+                .setTitle(getString(R.string.logout))
+                .setMessage(getString(R.string.are_you_sure_logout))
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setPositiveButton(getString(R.string.Yes), new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        goBackToSignIn();
+                        FirebaseAuth.getInstance().signOut();
+                    }
+                })
+                .setNegativeButton(getString(R.string.No), null)
+                .show();
+    }
+
+    private void goBackToSignIn(){
+        Intent intent = new Intent(this, GoogleSignInActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

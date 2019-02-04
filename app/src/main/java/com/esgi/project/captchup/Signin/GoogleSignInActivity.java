@@ -37,7 +37,6 @@ public class GoogleSignInActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE = 1;
     private GoogleSignInClient mGoogleSignInClient;
-    //GoogleSignInAccount account;
     private DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
 
@@ -58,12 +57,9 @@ public class GoogleSignInActivity extends AppCompatActivity {
         databaseReference = FirebaseDatabase.getInstance().getReference( "users/");
 
 
-        findViewById(R.id.signInButton).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = mGoogleSignInClient.getSignInIntent();
-                startActivityForResult(intent, REQUEST_CODE);
-            }
+        findViewById(R.id.signInButton).setOnClickListener(view -> {
+            Intent intent = mGoogleSignInClient.getSignInIntent();
+            startActivityForResult(intent, REQUEST_CODE);
         });
     }
 
@@ -96,11 +92,7 @@ public class GoogleSignInActivity extends AppCompatActivity {
                 .setTitle(getString(R.string.quit))
                 .setMessage(getString(R.string.do_you_want_to_quit))
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton(getString(R.string.Yes), new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        finish();
-                    }
-                })
+                .setPositiveButton(getString(R.string.Yes), (dialog, which) -> finish())
                 .setNegativeButton(getString(R.string.No), null)
                 .show();
     }
@@ -117,25 +109,22 @@ public class GoogleSignInActivity extends AppCompatActivity {
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
         mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            addUser(user);
-                            updateUI(user);
-                        } else {
-                            Snackbar.make(findViewById(R.id.main_layout), getString(R.string.auth_failed), Snackbar.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-
+                .addOnCompleteListener(this, task -> {
+                    if (task.isSuccessful()) {
+                        FirebaseUser user = mAuth.getCurrentUser();
+                        addUser(user);
+                        updateUI(user);
+                    } else {
+                        Snackbar.make(findViewById(R.id.main_layout), getString(R.string.auth_failed), Snackbar.LENGTH_SHORT).show();
+                        updateUI(null);
                     }
+
                 });
     }
 
     private void addUser(FirebaseUser user) {
-        if(user != null)
-            databaseReference.child(user.getUid()).setValue(user.getUid());
-
+        if(user != null) {
+            databaseReference.child(user.getUid()).setValue(user.getDisplayName());
+        }
     }
 }
