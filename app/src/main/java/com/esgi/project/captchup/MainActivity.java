@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.widget.Toast;
 
 import com.esgi.project.captchup.ImageProcessing.ImageProcessingFragment;
 import com.esgi.project.captchup.Level.LevelFragment;
@@ -39,6 +40,7 @@ public class MainActivity extends FragmentActivity {
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if(account == null) {
+            Toast.makeText(this, getString(R.string.please_sign_in), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, GoogleSignInActivity.class);
             startActivity(intent);
             finish();

@@ -24,6 +24,7 @@ import com.esgi.project.captchup.Models.Prediction;
 import com.esgi.project.captchup.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -70,7 +71,7 @@ public class ImageProcessingFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         storageReference = FirebaseStorage.getInstance().getReference(IMAGES_ROOT);
-        databaseLevels = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT + "/" + GoogleSignIn.getLastSignedInAccount(getContext()).getId());
+        databaseLevels = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT + "/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
         ivSelectedImage = getView().findViewById(R.id.ivSelectedImage);
         tvResult = getView().findViewById(R.id.textViewResult);
         pbProcessing = getView().findViewById(R.id.pbProcessing);
@@ -159,7 +160,7 @@ public class ImageProcessingFragment extends Fragment {
                 createdLevel = new Level(levelId, String.valueOf(downloadUrl));
                 databaseLevels.child(levelId).setValue(createdLevel);
 
-                DatabaseReference databasePredictions = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT + "/" + GoogleSignIn.getLastSignedInAccount(getContext()).getId() + "/" + levelId + "/" + Prediction.PREDICTIONS_ROOT);
+                DatabaseReference databasePredictions = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT + "/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/" + levelId + "/" + Prediction.PREDICTIONS_ROOT);
                 for (Prediction prediction : predictions) {
                     String predictionId = databasePredictions.push().getKey();
                     Prediction p = new Prediction(predictionId, prediction.getValue(), prediction.getPrecision());

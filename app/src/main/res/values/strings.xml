@@ -44,7 +44,7 @@
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
     <string name="desc_firebase_lockup">Firebase logo and name</string>
-    <string name="auth_failed">Authentication failed</string>
+    <string name="auth_failed">L\'authentification a échoué</string>
     <string name="start_phone_auth">Start</string>
     <string name="verify_phone_auth">Verify</string>
     <string name="resend_phone_auth">Resend</string>
@@ -103,4 +103,10 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="configure">Configure</string>
     <string name="add_widget">Add widget</string>
+    <string name="please_sign_in">Veuillez vous connecter.</string>
+    <string name="quit">Quitter</string>
+    <string name="do_you_want_to_quit">Voulez-vous quitter l\'application ?</string>
+    <string name="Yes">Oui</string>
+    <string name="No">Non</string>
+    <string name="web_client_id">637823783449-stsmot4hbiij70iqkpja6701lul1hh9t.apps.googleusercontent.com</string>
 </resources>

@@ -37,16 +37,20 @@ public class GoogleSignInActivity extends AppCompatActivity {
 
     public static final int REQUEST_CODE = 1;
     private GoogleSignInClient mGoogleSignInClient;
-    GoogleSignInAccount account;
+    //GoogleSignInAccount account;
     private DatabaseReference databaseReference;
+    private FirebaseAuth mAuth;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_google_sign_in);
 
+        mAuth = FirebaseAuth.getInstance();
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.web_client_id))
                 .requestEmail()
                 .build();
 
@@ -63,47 +67,75 @@ public class GoogleSignInActivity extends AppCompatActivity {
         });
     }
 
-    private void addUser() {
-        String id = GoogleSignIn.getLastSignedInAccount(getApplicationContext()).getId();
-        databaseReference.child(id).setValue(id);
-    }
-
     @Override
-    protected void onResume() {
-        super.onResume();
-        account = GoogleSignIn.getLastSignedInAccount(this);
-        updateUI();
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        updateUI(currentUser);
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        account = GoogleSignIn.getLastSignedInAccount(this);
-            updateUI();
+        if(requestCode == REQUEST_CODE) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            }catch(Exception e) {
+
+            }
+        }
     }
 
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder
-                .setTitle("Quitter")
-                .setMessage("Voulez-vous quitter l'application ?")
+                .setTitle(getString(R.string.quit))
+                .setMessage(getString(R.string.do_you_want_to_quit))
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                .setPositiveButton(getString(R.string.Yes), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
                     }
                 })
-                .setNegativeButton("Non", null)
+                .setNegativeButton(getString(R.string.No), null)
                 .show();
     }
 
-    private void updateUI() {
-        if (account != null) {
-            addUser();
+    private void updateUI(FirebaseUser currentUser) {
+        if(currentUser != null) {
             // OPEN MAIN ACTIVITY
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
+    }
+
+    private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
+
+        AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            addUser(user);
+                            updateUI(user);
+                        } else {
+                            Snackbar.make(findViewById(R.id.main_layout), getString(R.string.auth_failed), Snackbar.LENGTH_SHORT).show();
+                            updateUI(null);
+                        }
+
+                    }
+                });
+    }
+
+    private void addUser(FirebaseUser user) {
+        if(user != null)
+            databaseReference.child(user.getUid()).setValue(user.getUid());
+
     }
 }
