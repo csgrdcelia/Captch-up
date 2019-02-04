@@ -115,6 +115,6 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        activity.createLevel(s);
+        activity.translatePredictions(s);
     }
 }

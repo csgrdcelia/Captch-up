@@ -3,6 +3,7 @@ package com.esgi.project.captchup;
 
 import android.os.AsyncTask;
 
+import com.esgi.project.captchup.ImageProcessing.ImageProcessingFragment;
 import com.esgi.project.captchup.Models.Prediction;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -15,62 +16,75 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class Translator extends AsyncTask<String, Prediction, Prediction> {
+public class PredictionTranslator extends AsyncTask<List<Prediction>, Prediction, List<Prediction>> {
+    ImageProcessingFragment activity;
 
-    static String translate(String sourceLanguageCode, String targetLanguageCode, String sourceText) {
-        StringBuilder result = new StringBuilder();
-        try {
-            String encodedText = URLEncoder.encode(sourceText, "UTF-8");
-            String urlStr = "https://www.googleapis.com/language/translate/v2?key=" + "AIzaSyDgZc15rtLGH-UPZ7w3LQPJlL1zd5KyBtU" + "&q=" + encodedText + "&target=" + targetLanguageCode + "&source=" + sourceLanguageCode;
-
-            URL url = new URL(urlStr);
-
-            HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-            InputStream stream;
-            if (conn.getResponseCode() == 200) //success
-            {
-                stream = conn.getInputStream();
-            } else
-                stream = conn.getErrorStream();
-
-            BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-            String line;
-            while ((line = reader.readLine()) != null) {
-                result.append(line);
-            }
-
-            JsonParser parser = new JsonParser();
-
-            JsonElement element = parser.parse(result.toString());
-
-            if (element.isJsonObject()) {
-                JsonObject obj = element.getAsJsonObject();
-                if (obj.get("error") == null) {
-                    String translatedText = obj.get("data").getAsJsonObject().
-                            get("translations").getAsJsonArray().
-                            get(0).getAsJsonObject().
-                            get("translatedText").getAsString();
-                    return translatedText;
-
-                }
-            }
-
-            if (conn.getResponseCode() != 200) {
-                System.err.println(result);
-            }
-
-        } catch (IOException | JsonSyntaxException ex) {
-            System.err.println(ex.getMessage());
-        }
-
-        return null;
+    public PredictionTranslator(ImageProcessingFragment activity) {
+        this.activity = activity;
     }
 
     @Override
-    protected Prediction doInBackground(String... strings) {
-        return null;
+    protected List<Prediction> doInBackground(List<Prediction>... predictions) {
+        if(android.os.Debug.isDebuggerConnected())
+            android.os.Debug.waitForDebugger();
+
+
+        for(Prediction p : predictions[0]) {
+            try {
+                StringBuilder result = new StringBuilder();
+                String encodedText = URLEncoder.encode(p.getValue(), "UTF-8");
+                String urlStr = "https://www.googleapis.com/language/translate/v2?key=" + "AIzaSyDgZc15rtLGH-UPZ7w3LQPJlL1zd5KyBtU" + "&q=" + encodedText + "&target=fr&source=en";
+
+                URL url = new URL(urlStr);
+
+                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+                InputStream stream;
+                if (conn.getResponseCode() == 200) //success
+                {
+                    stream = conn.getInputStream();
+                } else
+                    stream = conn.getErrorStream();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    result.append(line);
+                }
+
+                JsonParser parser = new JsonParser();
+
+                JsonElement element = parser.parse(result.toString());
+
+                if (element.isJsonObject()) {
+                    JsonObject obj = element.getAsJsonObject();
+                    if (obj.get("error") == null) {
+                        String translatedText = obj.get("data").getAsJsonObject().
+                                get("translations").getAsJsonArray().
+                                get(0).getAsJsonObject().
+                                get("translatedText").getAsString();
+                        p.setValue(translatedText);
+
+                    }
+                }
+
+                if (conn.getResponseCode() != 200) {
+                    System.err.println(result);
+                }
+
+            } catch (IOException | JsonSyntaxException ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
+        return predictions[0];
+    }
+
+    @Override
+    protected void onPostExecute(List<Prediction> predictions) {
+        super.onPostExecute(predictions);
+        activity.createLevel(predictions);
     }
 }

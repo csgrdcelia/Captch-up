@@ -23,8 +23,8 @@ import com.esgi.project.captchup.Game.GameFragment;
 import com.esgi.project.captchup.MainActivity;
 import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.Models.Prediction;
+import com.esgi.project.captchup.PredictionTranslator;
 import com.esgi.project.captchup.R;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -81,14 +81,11 @@ public class ImageProcessingFragment extends Fragment {
         pbProcessing = getView().findViewById(R.id.pbProcessing);
         ibPlay = getView().findViewById(R.id.ibPlay);
 
-        ibPlay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (createdLevel != null) {
-                    MainActivity activity = (MainActivity) getView().getContext();
-                    Fragment myFragment = GameFragment.newInstance(createdLevel);
-                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, myFragment).addToBackStack(null).commit();
-                }
+        ibPlay.setOnClickListener(v -> {
+            if (createdLevel != null) {
+                MainActivity activity = (MainActivity) getView().getContext();
+                Fragment myFragment = GameFragment.newInstance(createdLevel);
+                activity.getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, myFragment).addToBackStack(null).commit();
             }
         });
 
@@ -144,9 +141,18 @@ public class ImageProcessingFragment extends Fragment {
         return mime.getExtensionFromMimeType(cr.getType(uri));
     }
 
-    public void createLevel(String apiResult) {
-
+    /**
+     * Translates the list of predictions en -> fr
+     */
+    public void translatePredictions(String apiResult) {
         List<Prediction> predictions = Prediction.getFirst3Predictions(apiResult);
+        new PredictionTranslator(this).execute(predictions);
+    }
+
+    /**
+     * Creates a level according to given list of translated predictions
+     */
+    public void createLevel(List<Prediction> predictions) {
 
         if (predictions != null) {
 

@@ -94,4 +94,8 @@ public class Prediction implements Serializable {
     public void setFound(Boolean found) {
         this.found = found;
     }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 }

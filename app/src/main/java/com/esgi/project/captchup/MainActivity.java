@@ -51,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, getString(R.string.please_sign_in), Toast.LENGTH_SHORT).show();
             goBackToSignIn();
         } else {
-
             BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 

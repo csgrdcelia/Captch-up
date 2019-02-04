@@ -55,10 +55,10 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.0.5'
     implementation 'com.google.firebase:firebase-database:16.0.5'
     // Api
-    //implementation 'com.google.cloud:google-cloud-vision:1.59.0'
     implementation 'com.google.api-client:google-api-client-android:1.20.0' exclude module: 'httpclient'
     implementation 'com.google.http-client:google-http-client-gson:1.20.0' exclude module: 'httpclient'
     implementation 'com.google.apis:google-api-services-vision:v1-rev2-1.21.0' exclude module: 'httpclient'
+    implementation 'com.google.code.gson:gson:2.2.4'
     //Other
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.jinatonic.confetti:confetti:1.1.1'
