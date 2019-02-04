@@ -2,10 +2,9 @@ package com.esgi.project.captchup;
 
 import org.junit.Test;
 
-public class PredictionUnitTest {
+public class CacheImageTest {
     @Test
-    public void getFirst3FromJsonTest(){
-
+    public void getFileNameTest() {
 
     }
 }
