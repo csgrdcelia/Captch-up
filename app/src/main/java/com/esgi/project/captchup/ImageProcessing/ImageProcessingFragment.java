@@ -3,6 +3,7 @@ package com.esgi.project.captchup.ImageProcessing;
 
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
+import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.MimeTypeMap;
@@ -80,7 +82,7 @@ public class ImageProcessingFragment extends Fragment {
         tvResult = getView().findViewById(R.id.textViewResult);
         pbProcessing = getView().findViewById(R.id.pbProcessing);
         ibPlay = getView().findViewById(R.id.ibPlay);
-
+        increaseHitAreaOfPlayButton();
         ibPlay.setOnClickListener(v -> {
             if (createdLevel != null) {
                 MainActivity activity = (MainActivity) getView().getContext();
@@ -90,16 +92,6 @@ public class ImageProcessingFragment extends Fragment {
         });
 
         loadImagefromGallery();
-    }
-
-
-    /**
-     * Runs the gallery picker
-     */
-    public void loadImagefromGallery() {
-        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
-                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
     }
 
     @Override
@@ -125,6 +117,18 @@ public class ImageProcessingFragment extends Fragment {
 
     }
 
+    /**
+     * Runs the gallery picker
+     */
+    public void loadImagefromGallery() {
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK,
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(galleryIntent, RESULT_LOAD_IMG);
+    }
+
+    /**
+     * Calls the Vision API (AsyncTask)
+     */
     public void callVisionAPI() {
 
         VisionAPIProcess process = new VisionAPIProcess(imageURI, getContext(), this);
@@ -135,6 +139,9 @@ public class ImageProcessingFragment extends Fragment {
 
     }
 
+    /**
+     * Returns the file extension of the given uri
+     */
     public String getFileExtension(Uri uri) {
         ContentResolver cr = getActivity().getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
@@ -145,6 +152,7 @@ public class ImageProcessingFragment extends Fragment {
      * Translates the list of predictions en -> fr
      */
     public void translatePredictions(String apiResult) {
+        tvResult.setText(getString(R.string.level_creation));
         List<Prediction> predictions = Prediction.getFirst3Predictions(apiResult);
         new PredictionTranslator(this).execute(predictions);
     }
@@ -190,9 +198,28 @@ public class ImageProcessingFragment extends Fragment {
         }
     }
 
+    /**
+     * Sets the action bar title
+     */
     private void setActionBarTitle() {
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
             actionBar.setTitle(R.string.import_image);
+    }
+
+    /**
+     * This increase the hit area of the play button
+     */
+    private void increaseHitAreaOfPlayButton() {
+        final View parent = (View) ibPlay.getParent();  // button: the view you want to enlarge hit area
+        parent.post(() -> {
+            final Rect rect = new Rect();
+            ibPlay.getHitRect(rect);
+            rect.top -= 100;
+            rect.left -= 100;
+            rect.bottom += 100;
+            rect.right += 100;
+            parent.setTouchDelegate( new TouchDelegate( rect , ibPlay));
+        });
     }
 
 
