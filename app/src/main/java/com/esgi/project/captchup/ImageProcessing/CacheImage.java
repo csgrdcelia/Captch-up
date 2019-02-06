@@ -27,9 +27,12 @@ public class CacheImage {
 
     public String urlFromImage;
     Context context;
-    Bitmap bitmap;
     File fileCache;
     ImageView iv;
+
+    public CacheImage(String url) {
+        urlFromImage = url;
+    }
 
     public CacheImage(ImageView iv, String url, Context context) {
         this.iv = iv;

@@ -27,8 +27,8 @@ public class Level implements Serializable{
     {
         if(predictions == null)
             predictions = new ArrayList<>();
-
-        predictions.add(prediction);
+        if(predictions.size() < 3)
+            predictions.add(prediction);
     }
 
     /**
@@ -96,9 +96,11 @@ public class Level implements Serializable{
      */
     public Prediction getPrediction(String answer)
     {
-        for(Prediction prediction : predictions) {
-            if(prediction.value.equalsIgnoreCase(answer)) {
-                return prediction;
+        if(predictions != null) {
+            for (Prediction prediction : predictions) {
+                if (prediction.value.equalsIgnoreCase(answer)) {
+                    return prediction;
+                }
             }
         }
         return null;
@@ -108,10 +110,10 @@ public class Level implements Serializable{
      * Returns the prediction according to given number ( 0, 1, 2 )
      */
     public Prediction getPrediction(int predictionNumber) {
-        if(predictionNumber >= 0 && predictionNumber < 3)
+        if(predictions != null && predictionNumber >= 0 && predictionNumber < 3)
             return predictions.get(predictionNumber);
-        else
-            return null;
+
+        return null;
     }
 
     /**
@@ -131,20 +133,21 @@ public class Level implements Serializable{
     }
 
     /**
-     * For test purposes
+     * Returns the number of predictions of the current level
      */
-    public static Prediction[] getPredictionList()
+    public int getNumberOfPredictions()
     {
-        Prediction prediction1 = new Prediction("20", "Robot", 80.0, false);
-        Prediction prediction2 = new Prediction("13", "Jeu", 85.0, false);
-        Prediction prediction3 = new Prediction("15", "Test", 90.0, false);
+        if (predictions == null)
+            return 0;
+        else
+            return predictions.size();
+    }
 
-        Prediction predictionList[] = new Prediction[3];
-        predictionList[0] = prediction1;
-        predictionList[1] = prediction2;
-        predictionList[2] = prediction3;
-
-        return predictionList;
+    /**
+     * Resets the prediction list
+     */
+    public void resetPredictions() {
+        predictions = null;
     }
 
     public String getImage() {
