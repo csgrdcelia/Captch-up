@@ -55,8 +55,10 @@ public class MainActivity extends AppCompatActivity {
             navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
             Fragment existingFragment = getSupportFragmentManager().findFragmentById(R.id.mainFragment);
-            if (getIntent().getBooleanExtra("WIDGET", false))
+            if (getIntent().getBooleanExtra("WIDGET", false)) {
                 updateFragment(new ImageProcessingFragment());
+                getIntent().removeExtra("WIDGET");
+            }
             else if (existingFragment == null) {
                 updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.UNFINISHED));
             }
@@ -114,4 +116,6 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
 }

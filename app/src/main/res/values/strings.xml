@@ -114,4 +114,5 @@
     <string name="import_image">Importer une image</string>
     <string name="logout">Déconnexion</string>
     <string name="are_you_sure_logout">Êtes-vous sûrs de vouloir vous déconnecter ?</string>
+    <string name="game">Jeu</string>
 </resources>

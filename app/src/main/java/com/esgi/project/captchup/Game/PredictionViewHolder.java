@@ -1,5 +1,6 @@
-package com.esgi.project.captchup.Level;
+package com.esgi.project.captchup.Game;
 
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
@@ -36,12 +37,19 @@ public class PredictionViewHolder {
             pbPrecision.setProgress((int)(prediction.getPrecision() * 100));
             update();
         }
-
     }
 
     public void update() {
         setTextViewText();
         setMedia();
+        updateOrientationConf();
+    }
+
+    private void setTextViewText() {
+        if(prediction.getFound())
+            tvPrecision.setText(prediction.getValue());
+        else
+            tvPrecision.setText(new DecimalFormat("#.##").format (prediction.getPrecision() * 100) + "%");
     }
 
     private void setMedia() {
@@ -54,11 +62,13 @@ public class PredictionViewHolder {
         }
     }
 
-    private void setTextViewText() {
-        if(prediction.getFound())
-            tvPrecision.setText(prediction.getValue());
-        else
-            tvPrecision.setText(new DecimalFormat("#.##").format (prediction.getPrecision() * 100) + "%");
+    private void updateOrientationConf() {
+        int orientation = v.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            tvPrecision.setVisibility(View.GONE);
+        } else if (orientation == Configuration.ORIENTATION_PORTRAIT){
+            tvPrecision.setVisibility(View.VISIBLE);
+        }
     }
 
 }

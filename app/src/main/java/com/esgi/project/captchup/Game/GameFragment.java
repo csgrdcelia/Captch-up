@@ -1,10 +1,13 @@
 package com.esgi.project.captchup.Game;
 
 
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,7 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.esgi.project.captchup.Level.PredictionViewHolder;
+import com.esgi.project.captchup.Level.LevelFragment;
 import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.Models.Prediction;
 import com.esgi.project.captchup.R;
@@ -61,6 +64,7 @@ public class GameFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        setActionBarTitle();
         answerEditText = getView().findViewById(R.id.answerEditText);
         imageView = getView().findViewById(R.id.picture);
         databaseReference = FirebaseDatabase.getInstance().getReference( Level.LEVELS_ROOT + "/" + FirebaseAuth.getInstance().getCurrentUser().getUid() + "/" + currentLevel.getId() + "/" + Prediction.PREDICTIONS_ROOT);
@@ -155,6 +159,11 @@ public class GameFragment extends Fragment {
         predictionViewHolders[predictionNumber].update();
     }
 
+    private void setActionBarTitle() {
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setTitle(R.string.game);
+    }
+
     /**
      * Launch a shot of confetti
      * Library : Confetti by jinatonic
@@ -170,6 +179,4 @@ public class GameFragment extends Fragment {
                         Color.parseColor("#fdff6a")  })
                 .oneShot();
     }
-
-
 }

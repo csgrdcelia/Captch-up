@@ -113,7 +113,6 @@ public class LevelFragment extends Fragment {
             actionBar.setTitle(getString(R.string.finished_levels));
         else
             actionBar.setTitle(getString(R.string.unfinished_levels));
-
     }
 
 }
