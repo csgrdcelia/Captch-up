@@ -140,16 +140,8 @@ public class ImageProcessingFragment extends Fragment {
     }
 
     /**
-     * Returns the file extension of the given uri
-     */
-    public String getFileExtension(Uri uri) {
-        ContentResolver cr = getActivity().getContentResolver();
-        MimeTypeMap mime = MimeTypeMap.getSingleton();
-        return mime.getExtensionFromMimeType(cr.getType(uri));
-    }
-
-    /**
      * Translates the list of predictions en -> fr
+     * This is called from vision api task
      */
     public void translatePredictions(String apiResult) {
         tvResult.setText(getString(R.string.level_creation));
@@ -159,6 +151,7 @@ public class ImageProcessingFragment extends Fragment {
 
     /**
      * Creates a level according to given list of translated predictions
+     * This is called from prediction translator task
      */
     public void createLevel(List<Prediction> predictions) {
 
@@ -204,6 +197,15 @@ public class ImageProcessingFragment extends Fragment {
     private void setActionBarTitle() {
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
             actionBar.setTitle(R.string.import_image);
+    }
+
+    /**
+     * Returns the file extension of the given uri
+     */
+    public String getFileExtension(Uri uri) {
+        ContentResolver cr = getActivity().getContentResolver();
+        MimeTypeMap mime = MimeTypeMap.getSingleton();
+        return mime.getExtensionFromMimeType(cr.getType(uri));
     }
 
     /**
