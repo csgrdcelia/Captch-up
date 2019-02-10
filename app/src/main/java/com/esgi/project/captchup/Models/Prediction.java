@@ -46,6 +46,9 @@ public class Prediction implements Serializable {
         this.found = found;
     }
 
+    /**
+     * This gets the first 3 predictions of given json (which is returned by vision api)
+     */
     public static List<Prediction> getFirst3Predictions(String json) {
         try {
             List<Prediction> predictions = new ArrayList<>();
