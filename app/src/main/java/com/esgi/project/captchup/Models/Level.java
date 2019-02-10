@@ -9,7 +9,7 @@ public class Level implements Serializable{
     private String id;
     private String image;
 
-    private List<Prediction> predictions;
+    //private List<Prediction> predictions;
 
     public Level() {
     }
