@@ -111,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    private void goBackToSignIn(){
+    //private void goBackToSignIn(){
         Intent intent = new Intent(this, GoogleSignInActivity.class);
         startActivity(intent);
         finish();
