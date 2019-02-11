@@ -49,7 +49,7 @@ public class Prediction implements Serializable {
     /**
      * This gets the first 3 predictions of given json (which is returned by vision api)
      */
-    //public static List<Prediction> getFirst3Predictions(String json) {
+    public static List<Prediction> getFirst3Predictions(String json) {
         try {
             List<Prediction> predictions = new ArrayList<>();
             JSONObject jsonObject = new JSONObject(json);
