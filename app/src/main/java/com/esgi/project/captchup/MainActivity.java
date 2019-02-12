@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
     private void logout() {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

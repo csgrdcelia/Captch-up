@@ -49,6 +49,10 @@ public class CacheImage {
         }
     }
 
+    /**
+     * Parses the file name from the url of stored image
+     * @return
+     */
     public String getFileName() {
         int start = "https://firebasestorage.googleapis.com/v0/b/captchup-22a63.appspot.com/o/images%".length();
         int end = urlFromImage.indexOf('?');
