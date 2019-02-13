@@ -24,7 +24,7 @@ public class LevelTest {
 
         level.addPrediction(p);
         level.addPrediction(p);
-        Assert.assertTrue(level.getNumberOfPredictions() == 3);
+        Assert.assertFalse(level.getNumberOfPredictions() == 3);
 
         level.addPrediction(p);
         Assert.assertTrue(level.getNumberOfPredictions() == 3);
