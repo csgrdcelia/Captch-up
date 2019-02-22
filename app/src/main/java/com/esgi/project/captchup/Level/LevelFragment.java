@@ -45,8 +45,6 @@ public class LevelFragment extends Fragment {
     private RecyclerView recyclerView;
     private List<Level> levels;
 
-    private DatabaseReference databaseReference;
-
     public LevelFragment() {
         // Required empty public constructor
     }
@@ -74,7 +72,7 @@ public class LevelFragment extends Fragment {
         recyclerView = (RecyclerView)getView().findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new GridLayoutManager(getView().getContext(),2)); // DISPLAY 2 PER ROW
 
-        databaseReference = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT + "/" + FirebaseAuth.getInstance().getCurrentUser().getUid() );
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference(Level.LEVELS_ROOT + "/" + FirebaseAuth.getInstance().getCurrentUser().getUid() );
 
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -102,7 +100,6 @@ public class LevelFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                //Toast.makeText(getContext(), databaseError.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

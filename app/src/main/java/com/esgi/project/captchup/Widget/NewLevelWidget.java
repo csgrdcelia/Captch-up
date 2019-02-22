@@ -39,10 +39,5 @@ public class NewLevelWidget extends AppWidgetProvider {
         }
     }
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        super.onReceive(context, intent);
-
-    }
 }
 

@@ -116,4 +116,5 @@
     <string name="are_you_sure_logout">Êtes-vous sûrs de vouloir vous déconnecter ?</string>
     <string name="game">Jeu</string>
     <string name="level_creation">Création du niveau...</string>
+    <string name="error">error</string>
 </resources>

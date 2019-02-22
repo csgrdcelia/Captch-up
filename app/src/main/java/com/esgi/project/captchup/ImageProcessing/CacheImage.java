@@ -1,27 +1,21 @@
 package com.esgi.project.captchup.ImageProcessing;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
 import java.io.BufferedInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.concurrent.ExecutionException;
 
 public class CacheImage {
 
@@ -93,9 +87,8 @@ public class CacheImage {
                 connection.connect();
                 InputStream inputStream = connection.getInputStream();
                 BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-                Bitmap bmp = BitmapFactory.decodeStream(bufferedInputStream);
 
-                return bmp;
+                return BitmapFactory.decodeStream(bufferedInputStream);
 
             } catch (IOException e) {
                 e.printStackTrace();

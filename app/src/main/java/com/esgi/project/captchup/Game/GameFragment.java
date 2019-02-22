@@ -1,7 +1,6 @@
 package com.esgi.project.captchup.Game;
 
 
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.esgi.project.captchup.Level.LevelFragment;
 import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.Models.Prediction;
 import com.esgi.project.captchup.R;

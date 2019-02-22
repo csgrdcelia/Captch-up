@@ -6,7 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.esgi.project.captchup.ImageProcessing.ImageProcessingFragment;
+import com.esgi.project.captchup.R;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.http.HttpTransport;
 import com.google.api.client.json.JsonFactory;
@@ -75,7 +75,7 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
         try {
             annotateImageReq.setImage(getImageEncodeImage(imageURI));
         } catch (FileNotFoundException e) {
-            Log.e("error", e.getMessage());
+            Log.e(context.getString(R.string.error), e.getMessage());
             e.printStackTrace();
         }
         annotateImageRequests.add(annotateImageReq);
@@ -97,7 +97,7 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
         try {
             annotateRequest = vision.images().annotate(batchAnnotateImagesRequest);
         } catch (IOException e) {
-            Log.e("error", e.getMessage());
+            Log.e(context.getString(R.string.error), e.getMessage());
             e.printStackTrace();
         }
         annotateRequest.setDisableGZipContent(true);
@@ -105,7 +105,7 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
         try {
             response = annotateRequest.execute();
         } catch (IOException e) {
-            Log.e("error", e.getMessage());
+            Log.e(context.getString(R.string.error), e.getMessage());
             e.printStackTrace();
         }
 

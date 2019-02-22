@@ -6,20 +6,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.Window;
 import android.widget.Toast;
 
 import com.esgi.project.captchup.ImageProcessing.ImageProcessingFragment;
 import com.esgi.project.captchup.Level.LevelFragment;
 import com.esgi.project.captchup.Signin.GoogleSignInActivity;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -37,8 +33,9 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.navigation_achievements:
                         updateFragment(LevelFragment.newInstance(LevelFragment.LevelFragmentType.FINISHED));
                         return true;
+                    default:
+                        return false;
                 }
-                return false;
             };
 
     @Override

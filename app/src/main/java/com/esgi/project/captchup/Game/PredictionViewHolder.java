@@ -1,13 +1,11 @@
 package com.esgi.project.captchup.Game;
 
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.esgi.project.captchup.Models.Level;
 import com.esgi.project.captchup.Models.Prediction;
 import com.esgi.project.captchup.R;
 

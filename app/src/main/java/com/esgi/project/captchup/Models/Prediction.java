@@ -1,15 +1,11 @@
 package com.esgi.project.captchup.Models;
 
-import com.google.gson.JsonObject;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 public class Prediction implements Serializable {
     public static final String PREDICTIONS_ROOT = "predictions";
@@ -75,7 +71,7 @@ public class Prediction implements Serializable {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return null;
+        return new ArrayList<Prediction>();
     }
 
     public String getId() {

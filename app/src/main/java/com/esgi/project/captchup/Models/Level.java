@@ -83,8 +83,7 @@ public class Level implements Serializable{
      */
     public boolean answerHasAlreadyBeenFound(String answer) {
         for(Prediction prediction : predictions) {
-            if(prediction.value.equalsIgnoreCase(answer)) {
-                if(prediction.found == true)
+            if(prediction.value.equalsIgnoreCase(answer) && prediction.found) {
                     return true;
             }
         }
