@@ -32,51 +32,52 @@ public class PredictionTranslator extends AsyncTask<List<Prediction>, Prediction
         if(android.os.Debug.isDebuggerConnected())
             android.os.Debug.waitForDebugger();
 
+        if(predictions[0] != null) {
+            for (Prediction p : predictions[0]) {
+                try {
+                    StringBuilder result = new StringBuilder();
+                    String encodedText = URLEncoder.encode(p.getValue(), "UTF-8");
+                    String urlStr = "https://www.googleapis.com/language/translate/v2?key=" + "AIzaSyDgZc15rtLGH-UPZ7w3LQPJlL1zd5KyBtU" + "&q=" + encodedText + "&target=fr&source=en";
 
-        for(Prediction p : predictions[0]) {
-            try {
-                StringBuilder result = new StringBuilder();
-                String encodedText = URLEncoder.encode(p.getValue(), "UTF-8");
-                String urlStr = "https://www.googleapis.com/language/translate/v2?key=" + "AIzaSyDgZc15rtLGH-UPZ7w3LQPJlL1zd5KyBtU" + "&q=" + encodedText + "&target=fr&source=en";
+                    URL url = new URL(urlStr);
 
-                URL url = new URL(urlStr);
+                    HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
+                    InputStream stream;
+                    if (conn.getResponseCode() == 200) //success
+                    {
+                        stream = conn.getInputStream();
+                    } else
+                        stream = conn.getErrorStream();
 
-                HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
-                InputStream stream;
-                if (conn.getResponseCode() == 200) //success
-                {
-                    stream = conn.getInputStream();
-                } else
-                    stream = conn.getErrorStream();
-
-                BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    result.append(line);
-                }
-
-                JsonParser parser = new JsonParser();
-
-                JsonElement element = parser.parse(result.toString());
-
-                if (element.isJsonObject()) {
-                    JsonObject obj = element.getAsJsonObject();
-                    if (obj.get("error") == null) {
-                        String translatedText = obj.get("data").getAsJsonObject().
-                                get("translations").getAsJsonArray().
-                                get(0).getAsJsonObject().
-                                get("translatedText").getAsString();
-                        p.setValue(translatedText);
-
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+                    String line;
+                    while ((line = reader.readLine()) != null) {
+                        result.append(line);
                     }
-                }
 
-                if (conn.getResponseCode() != 200) {
-                    System.err.println(result);
-                }
+                    JsonParser parser = new JsonParser();
 
-            } catch (IOException | JsonSyntaxException ex) {
-                System.err.println(ex.getMessage());
+                    JsonElement element = parser.parse(result.toString());
+
+                    if (element.isJsonObject()) {
+                        JsonObject obj = element.getAsJsonObject();
+                        if (obj.get("error") == null) {
+                            String translatedText = obj.get("data").getAsJsonObject().
+                                    get("translations").getAsJsonArray().
+                                    get(0).getAsJsonObject().
+                                    get("translatedText").getAsString();
+                            p.setValue(translatedText);
+
+                        }
+                    }
+
+                    if (conn.getResponseCode() != 200) {
+                        System.err.println(result);
+                    }
+
+                } catch (IOException | JsonSyntaxException ex) {
+                    System.err.println(ex.getMessage());
+                }
             }
         }
         return predictions[0];

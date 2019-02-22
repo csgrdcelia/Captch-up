@@ -132,6 +132,9 @@ public class GameFragment extends Fragment {
         }
     }
 
+    /**
+     * Update prediction to the db
+     */
     private void updatePrediction(String answer)
     {
         Prediction guessedPrediction = currentLevel.getPrediction(answer);
