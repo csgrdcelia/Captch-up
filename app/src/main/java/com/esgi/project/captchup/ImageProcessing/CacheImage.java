@@ -25,7 +25,7 @@ import java.util.concurrent.ExecutionException;
 
 public class CacheImage {
 
-    public String urlFromImage;
+    String urlFromImage;
     Context context;
     File fileCache;
     ImageView iv;
