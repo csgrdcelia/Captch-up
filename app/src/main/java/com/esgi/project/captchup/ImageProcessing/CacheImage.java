@@ -100,7 +100,8 @@ public class CacheImage {
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
-                connection.disconnect();
+                if(connection != null)
+                    connection.disconnect();
             }
             return null;
         }
