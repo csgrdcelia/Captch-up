@@ -47,7 +47,7 @@ public class ImageProcessingFragment extends Fragment {
 
     public static final String IMAGES_ROOT = "images";
     public static final String VISION_API_KEY = "AIzaSyDgZc15rtLGH-UPZ7w3LQPJlL1zd5KyBtU";
-    private static int RESULT_LOAD_IMG = 1;
+    private static final int RESULT_LOAD_IMG = 1;
     Uri imageURI;
     Level createdLevel;
 

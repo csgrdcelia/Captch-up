@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.esgi.project.captchup.MainActivity;
 import com.esgi.project.captchup.R;
@@ -71,7 +72,7 @@ public class GoogleSignInActivity extends AppCompatActivity {
                 GoogleSignInAccount account = task.getResult(ApiException.class);
                 firebaseAuthWithGoogle(account);
             }catch(Exception e) {
-
+                Log.e("error", e.getMessage());
             }
         }
     }

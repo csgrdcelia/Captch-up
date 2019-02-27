@@ -2,6 +2,7 @@ package com.esgi.project.captchup.imageprocessing;
 
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.esgi.project.captchup.models.Prediction;
 import com.google.gson.JsonElement;
@@ -28,8 +29,6 @@ public class PredictionTranslator extends AsyncTask<List<Prediction>, Prediction
 
     @Override
     protected List<Prediction> doInBackground(List<Prediction>... predictions) {
-        if(android.os.Debug.isDebuggerConnected())
-            android.os.Debug.waitForDebugger();
 
         if(predictions[0] != null) {
             for (Prediction p : predictions[0]) {
@@ -42,40 +41,20 @@ public class PredictionTranslator extends AsyncTask<List<Prediction>, Prediction
 
                     HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
                     InputStream stream;
-                    if (conn.getResponseCode() == 200) //success
-                    {
+                    if (conn.getResponseCode() == 200)
                         stream = conn.getInputStream();
-                    } else
+                    else
                         stream = conn.getErrorStream();
 
                     BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
                     String line;
-                    while ((line = reader.readLine()) != null) {
+                    while ((line = reader.readLine()) != null)
                         result.append(line);
-                    }
 
-                    JsonParser parser = new JsonParser();
-
-                    JsonElement element = parser.parse(result.toString());
-
-                    if (element.isJsonObject()) {
-                        JsonObject obj = element.getAsJsonObject();
-                        if (obj.get("error") == null) {
-                            String translatedText = obj.get("data").getAsJsonObject().
-                                    get("translations").getAsJsonArray().
-                                    get(0).getAsJsonObject().
-                                    get("translatedText").getAsString();
-                            p.setValue(translatedText);
-
-                        }
-                    }
-
-                    if (conn.getResponseCode() != 200) {
-                        System.err.println(result);
-                    }
+                    parse(result, p);
 
                 } catch (IOException | JsonSyntaxException ex) {
-                    System.err.println(ex.getMessage());
+                    Log.e("error", ex.getMessage());
                 }
             }
         }
@@ -87,4 +66,24 @@ public class PredictionTranslator extends AsyncTask<List<Prediction>, Prediction
         super.onPostExecute(predictions);
         activity.createLevel(predictions);
     }
+
+    public void parse(StringBuilder result, Prediction p) {
+        JsonParser parser = new JsonParser();
+
+        JsonElement element = parser.parse(result.toString());
+
+        if (element.isJsonObject()) {
+            JsonObject obj = element.getAsJsonObject();
+            if (obj.get("error") == null) {
+                String translatedText = obj.get("data").getAsJsonObject().
+                        get("translations").getAsJsonArray().
+                        get(0).getAsJsonObject().
+                        get("translatedText").getAsString();
+                p.setValue(translatedText);
+
+            }
+        }
+    }
+
+
 }

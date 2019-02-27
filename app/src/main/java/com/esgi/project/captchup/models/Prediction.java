@@ -71,7 +71,7 @@ public class Prediction implements Serializable {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return new ArrayList<Prediction>();
+        return new ArrayList<>();
     }
 
     public String getId() {

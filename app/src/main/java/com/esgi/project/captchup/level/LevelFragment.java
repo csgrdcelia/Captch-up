@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.esgi.project.captchup.game.GameFragment;
 import com.esgi.project.captchup.MainActivity;
@@ -84,9 +85,8 @@ public class LevelFragment extends Fragment {
                     for(DataSnapshot predictionSnapshot : levelSnapshot.child(Prediction.PREDICTIONS_ROOT).getChildren())
                         level.addPrediction(predictionSnapshot.getValue(Prediction.class));
 
-                    if(levelFragmentType == LevelFragmentType.UNFINISHED && !level.isFinished())
-                        levels.add(level);
-                    else if (levelFragmentType == LevelFragmentType.FINISHED && level.isFinished())
+                    if((levelFragmentType == LevelFragmentType.UNFINISHED && !level.isFinished())
+                    || (levelFragmentType == LevelFragmentType.FINISHED && level.isFinished()))
                         levels.add(level);
                 }
 
@@ -100,6 +100,7 @@ public class LevelFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getContext(), "Annulé", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -25,12 +25,15 @@ class CacheSaver extends AsyncTask<Void, String, Bitmap> {
     protected Bitmap doInBackground(Void... voids) {
         HttpURLConnection connection = null;
 
+        InputStream inputStream = null;
         try {
+            inputStream = connection.getInputStream();
+        } catch (IOException e) {
+            Log.e("error", e.getMessage());
+        }
+        try (BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream)) {
             connection = (HttpURLConnection) new URL(cacheImage.urlFromImage).openConnection();
             connection.connect();
-            InputStream inputStream = connection.getInputStream();
-            BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-
             return BitmapFactory.decodeStream(bufferedInputStream);
 
         } catch (IOException e) {
