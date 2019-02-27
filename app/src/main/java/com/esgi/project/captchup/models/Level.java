@@ -1,4 +1,4 @@
-package com.esgi.project.captchup.Models;
+package com.esgi.project.captchup.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;

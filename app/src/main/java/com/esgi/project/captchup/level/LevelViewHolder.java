@@ -1,4 +1,4 @@
-package com.esgi.project.captchup.Level;
+package com.esgi.project.captchup.level;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.esgi.project.captchup.Models.Level;
+import com.esgi.project.captchup.models.Level;
 import com.esgi.project.captchup.R;
-import com.esgi.project.captchup.ImageProcessing.CacheImage;
+import com.esgi.project.captchup.imageprocessing.CacheImage;
 
 public class LevelViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     Level level;

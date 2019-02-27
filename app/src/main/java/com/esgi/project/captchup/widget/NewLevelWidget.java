@@ -1,6 +1,5 @@
-package com.esgi.project.captchup.Widget;
+package com.esgi.project.captchup.widget;
 
-import android.app.Activity;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;

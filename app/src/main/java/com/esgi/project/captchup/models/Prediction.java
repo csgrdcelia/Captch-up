@@ -1,4 +1,4 @@
-package com.esgi.project.captchup.Models;
+package com.esgi.project.captchup.models;
 
 import org.json.JSONArray;
 import org.json.JSONException;

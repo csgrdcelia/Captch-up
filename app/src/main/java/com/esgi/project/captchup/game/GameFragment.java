@@ -1,4 +1,4 @@
-package com.esgi.project.captchup.Game;
+package com.esgi.project.captchup.game;
 
 
 import android.graphics.Color;
@@ -15,10 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.esgi.project.captchup.Models.Level;
-import com.esgi.project.captchup.Models.Prediction;
+import com.esgi.project.captchup.models.Level;
+import com.esgi.project.captchup.models.Prediction;
 import com.esgi.project.captchup.R;
-import com.esgi.project.captchup.ImageProcessing.CacheImage;
+import com.esgi.project.captchup.imageprocessing.CacheImage;
 import com.github.jinatonic.confetti.CommonConfetti;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;

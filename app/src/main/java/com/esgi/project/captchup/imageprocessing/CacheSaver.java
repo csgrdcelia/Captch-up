@@ -1,11 +1,10 @@
-package com.esgi.project.captchup.ImageProcessing;
+package com.esgi.project.captchup.imageprocessing;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.esgi.project.captchup.R;
 import com.squareup.picasso.Picasso;
 
 import java.io.BufferedInputStream;
@@ -36,7 +35,6 @@ class CacheSaver extends AsyncTask<Void, String, Bitmap> {
 
         } catch (IOException e) {
             Log.e("error", e.getMessage());
-            e.printStackTrace();
         } finally {
             if(connection != null)
                 connection.disconnect();

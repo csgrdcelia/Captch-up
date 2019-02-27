@@ -1,4 +1,4 @@
-package com.esgi.project.captchup.Level;
+package com.esgi.project.captchup.level;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.esgi.project.captchup.Models.Level;
+import com.esgi.project.captchup.models.Level;
 import com.esgi.project.captchup.R;
 
 import java.util.List;

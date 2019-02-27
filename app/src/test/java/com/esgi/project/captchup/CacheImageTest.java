@@ -1,8 +1,6 @@
 package com.esgi.project.captchup;
 
-import android.widget.ImageView;
-
-import com.esgi.project.captchup.ImageProcessing.CacheImage;
+import com.esgi.project.captchup.imageprocessing.CacheImage;
 
 import org.junit.Assert;
 import org.junit.Before;

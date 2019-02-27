@@ -1,10 +1,9 @@
-package com.esgi.project.captchup.ImageProcessing;
+package com.esgi.project.captchup.imageprocessing;
 
 
 import android.os.AsyncTask;
 
-import com.esgi.project.captchup.ImageProcessing.ImageProcessingFragment;
-import com.esgi.project.captchup.Models.Prediction;
+import com.esgi.project.captchup.models.Prediction;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;

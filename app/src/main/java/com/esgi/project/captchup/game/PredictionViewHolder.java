@@ -1,4 +1,4 @@
-package com.esgi.project.captchup.Game;
+package com.esgi.project.captchup.game;
 
 import android.content.res.Configuration;
 import android.view.View;
@@ -6,7 +6,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.esgi.project.captchup.Models.Prediction;
+import com.esgi.project.captchup.models.Prediction;
 import com.esgi.project.captchup.R;
 
 import java.text.DecimalFormat;

@@ -1,4 +1,4 @@
-package com.esgi.project.captchup.Level;
+package com.esgi.project.captchup.level;
 
 
 import android.os.Bundle;
@@ -13,10 +13,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.esgi.project.captchup.Game.GameFragment;
+import com.esgi.project.captchup.game.GameFragment;
 import com.esgi.project.captchup.MainActivity;
-import com.esgi.project.captchup.Models.Level;
-import com.esgi.project.captchup.Models.Prediction;
+import com.esgi.project.captchup.models.Level;
+import com.esgi.project.captchup.models.Prediction;
 import com.esgi.project.captchup.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;

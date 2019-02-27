@@ -1,4 +1,4 @@
-package com.esgi.project.captchup.ImageProcessing;
+package com.esgi.project.captchup.imageprocessing;
 
 import android.content.Context;
 import android.graphics.Bitmap;

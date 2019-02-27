@@ -1,7 +1,7 @@
 package com.esgi.project.captchup;
 
-import com.esgi.project.captchup.Models.Level;
-import com.esgi.project.captchup.Models.Prediction;
+import com.esgi.project.captchup.models.Level;
+import com.esgi.project.captchup.models.Prediction;
 
 import org.junit.Assert;
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package com.esgi.project.captchup.Level;
+package com.esgi.project.captchup.level;
 
 import android.view.View;
 

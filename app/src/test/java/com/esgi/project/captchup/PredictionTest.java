@@ -1,6 +1,6 @@
 package com.esgi.project.captchup;
 
-import com.esgi.project.captchup.Models.Prediction;
+import com.esgi.project.captchup.models.Prediction;
 
 import org.junit.Assert;
 import org.junit.Test;

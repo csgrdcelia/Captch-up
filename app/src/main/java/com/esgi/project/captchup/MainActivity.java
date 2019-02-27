@@ -13,9 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.esgi.project.captchup.ImageProcessing.ImageProcessingFragment;
-import com.esgi.project.captchup.Level.LevelFragment;
-import com.esgi.project.captchup.Signin.GoogleSignInActivity;
+import com.esgi.project.captchup.imageprocessing.ImageProcessingFragment;
+import com.esgi.project.captchup.level.LevelFragment;
+import com.esgi.project.captchup.signin.GoogleSignInActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
