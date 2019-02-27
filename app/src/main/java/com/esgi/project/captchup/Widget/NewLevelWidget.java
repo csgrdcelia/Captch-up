@@ -32,6 +32,9 @@ public class NewLevelWidget extends AppWidgetProvider {
         PendingIntent.getActivity(context, 0, intent, 0);
     }
 
+    /**
+     * Updates all the widgets
+     */
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         for (int appWidgetId : appWidgetIds) {
