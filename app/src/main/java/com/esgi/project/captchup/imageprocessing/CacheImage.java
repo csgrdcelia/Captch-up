@@ -30,7 +30,7 @@ public class CacheImage {
     }
 
     public void run() {
-        fileCache = new File(context.getCacheDir() + "/" + getFileName());
+        fileCache = new File(context.getCacheDir(),getFileName());
         if (!fileCache.exists()) {
             new CacheSaver(this).execute();
         } else {

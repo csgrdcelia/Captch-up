@@ -3,6 +3,7 @@ package com.esgi.project.captchup.imageprocessing;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.renderscript.ScriptGroup;
 import android.util.Log;
 
 import com.squareup.picasso.Picasso;
@@ -24,19 +25,22 @@ class CacheSaver extends AsyncTask<Void, String, Bitmap> {
     @Override
     protected Bitmap doInBackground(Void... voids) {
         HttpURLConnection connection = null;
-
         InputStream inputStream = null;
         try {
-            inputStream = connection.getInputStream();
-        } catch (IOException e) {
+            connection = (HttpURLConnection) new URL(cacheImage.urlFromImage).openConnection();
+            if(connection != null)
+            {
+                connection.connect();
+                inputStream = connection.getInputStream();
+            }
+        } catch(Exception e)
+        {
             Log.e("error", e.getMessage());
         }
         try (BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream)) {
-            connection = (HttpURLConnection) new URL(cacheImage.urlFromImage).openConnection();
-            connection.connect();
             return BitmapFactory.decodeStream(bufferedInputStream);
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             Log.e("error", e.getMessage());
         } finally {
             if(connection != null)
