@@ -3,13 +3,11 @@ package com.esgi.project.captchup.imageprocessing;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.renderscript.ScriptGroup;
 import android.util.Log;
 
 import com.squareup.picasso.Picasso;
 
 import java.io.BufferedInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
