@@ -18,7 +18,7 @@ public class CacheImageTest {
     @Test
     public void getFileNameTest() {
         String result = cacheImage.getFileName();
-        Assert.assertEquals(result, "2F1549272276522.jpg");
+        Assert.assertEquals(result, "remove2F1549272276522.jpg");
         Assert.assertNotEquals(result, "mauvais nom de fichier");
     }
 }
