@@ -76,7 +76,6 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
             annotateImageReq.setImage(getImageEncodeImage(imageURI));
         } catch (FileNotFoundException e) {
             Log.e(context.getString(R.string.error), e.getMessage());
-            e.printStackTrace();
         }
         annotateImageRequests.add(annotateImageReq);
 
@@ -98,7 +97,6 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
             annotateRequest = vision.images().annotate(batchAnnotateImagesRequest);
         } catch (IOException e) {
             Log.e(context.getString(R.string.error), e.getMessage());
-            e.printStackTrace();
         }
         annotateRequest.setDisableGZipContent(true);
         BatchAnnotateImagesResponse response = null;
@@ -106,7 +104,6 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
             response = annotateRequest.execute();
         } catch (IOException e) {
             Log.e(context.getString(R.string.error), e.getMessage());
-            e.printStackTrace();
         }
 
         return response.toString();

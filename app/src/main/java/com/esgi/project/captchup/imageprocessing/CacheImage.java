@@ -2,6 +2,7 @@ package com.esgi.project.captchup.imageprocessing;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
@@ -66,7 +67,7 @@ public class CacheImage {
 
         } catch (IOException e)
         {
-            e.printStackTrace();
+            Log.e("error", e.getMessage());
         }
     }
 
