@@ -2,20 +2,14 @@ package com.esgi.project.captchup.ImageProcessing;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
-import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class CacheImage {
 
@@ -37,7 +31,7 @@ public class CacheImage {
     public void run() {
         fileCache = new File(context.getCacheDir() + "/" + getFileName());
         if (!fileCache.exists()) {
-            new CacheSaver().execute();
+            new CacheSaver(this).execute();
         } else {
             Picasso.get().load(fileCache).centerCrop().fit().into(iv);
         }
@@ -76,38 +70,6 @@ public class CacheImage {
         }
     }
 
-    class CacheSaver extends AsyncTask<Void, String, Bitmap> {
-
-        @Override
-        protected Bitmap doInBackground(Void... voids) {
-            HttpURLConnection connection = null;
-
-            try {
-                connection = (HttpURLConnection) new URL(urlFromImage).openConnection();
-                connection.connect();
-                InputStream inputStream = connection.getInputStream();
-                BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
-
-                return BitmapFactory.decodeStream(bufferedInputStream);
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            } finally {
-                if(connection != null)
-                    connection.disconnect();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Bitmap result) {
-            super.onPostExecute(result);
-            if (result != null) {
-                saveImageToInternalStorage(result);
-                Picasso.get().load(fileCache).centerCrop().fit().into(iv);
-            }
-        }
-    }
 }
 
 

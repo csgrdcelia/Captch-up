@@ -104,6 +104,9 @@ public class LevelFragment extends Fragment {
         });
     }
 
+    /**
+     * Sets the action bar title
+     */
     private void setActionBarTitle() {
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         if (levelFragmentType == LevelFragmentType.FINISHED)
