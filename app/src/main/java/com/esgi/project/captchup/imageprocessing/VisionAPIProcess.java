@@ -42,7 +42,7 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
         this.activity = activity;
     }
 
-    rivate Image getImageEncodeImage(Uri image) throws FileNotFoundException {
+    private Image getImageEncodeImage(Uri image) throws FileNotFoundException {
 
         final InputStream imageStream = context.getContentResolver().openInputStream(image);
         final Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
