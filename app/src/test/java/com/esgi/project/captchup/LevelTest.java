@@ -53,7 +53,7 @@ public class LevelTest {
         level.addPrediction(new Prediction("id","test",40.0, true));
         level.addPrediction(new Prediction("id","test",40.0, false));
         result = level.isFinished();
-        Assert.assertFalse(result);
+        Assert.assertTrue(result);
 
         level.resetPredictions();
 
