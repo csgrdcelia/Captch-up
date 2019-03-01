@@ -42,6 +42,9 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
         this.activity = activity;
     }
 
+    /**
+     * Converts Uri to base 64 encoded image
+     */
     private Image getImageEncodeImage(Uri image) throws FileNotFoundException {
 
         final InputStream imageStream = context.getContentResolver().openInputStream(image);
