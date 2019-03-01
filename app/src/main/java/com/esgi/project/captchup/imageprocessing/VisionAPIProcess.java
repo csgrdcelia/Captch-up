@@ -45,7 +45,7 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
     /**
      * Converts Uri to base 64 encoded image
      */
-    private Image getImageEncodeImage(Uri image) throws FileNotFoundException {
+    private Image getImageEncodeImage2(Uri image) throws FileNotFoundException {
 
         final InputStream imageStream = context.getContentResolver().openInputStream(image);
         final Bitmap bitmap = BitmapFactory.decodeStream(imageStream);
@@ -76,7 +76,7 @@ public class VisionAPIProcess extends AsyncTask<String, String, String> {
         AnnotateImageRequest annotateImageReq = new AnnotateImageRequest();
         annotateImageReq.setFeatures(featureList);
         try {
-            annotateImageReq.setImage(getImageEncodeImage(imageURI));
+            annotateImageReq.setImage(getImageEncodeImage2(imageURI));
         } catch (FileNotFoundException e) {
             Log.e(context.getString(R.string.error), e.getMessage());
         }
