@@ -21,7 +21,7 @@ This android app contains a game thas uses the Cloud Vision API : the player upl
 - Images are cached to improve performance
 - Predictions are translated in French with [Cloud Translation API](https://cloud.google.com/translate/docs/)
 
-## Additionnal libraries
+## Additional libraries
 - [Picasso](https://github.com/square/picasso) : Easy loading of images
 - [Jinatonic.Confetti](https://github.com/jinatonic/confetti) : To display confetti when the user wins a level. SO important.
 
