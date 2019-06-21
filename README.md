@@ -15,7 +15,7 @@ This android app contains a game thas uses the Cloud Vision API : the player upl
 <img src="/app/src/main/screenshot3.jpg" width=280>
 
 ## Specs
-- User are authentified with [Firebase Auth](https://firebase.google.com/docs/auth/) 
+- User is authentified with [Firebase Auth](https://firebase.google.com/docs/auth/) 
 - Level data is stored in [Firebase Realtime Database](https://firebase.google.com/docs/database/) and images are stored in [Cloud Storage for Firebase](https://firebase.google.com/docs/storage/) 
 - Images are analyzed with the [Cloud Vision API](https://cloud.google.com/vision/)
 - Images are cached to improve performance
